@@ -1,4 +1,4 @@
-class Advice {
+class MoodInfo {
 
   int moodInfoid;
   String mood;
