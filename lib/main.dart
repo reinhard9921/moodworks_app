@@ -1,282 +1,49 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'Screens/login_screen.dart' as login;
+import 'Screens/splashscreen_screen.dart' as splash;
+import 'Screens/registerscreen_screen.dart' as register;
+import 'Screens/menuSelectionscreen_screen.dart' as menu;
+import 'Screens/selectDailyMoodScreen_screen.dart' as selectmood;
+import 'Screens/addNotesScreen_screen.dart' as notes;
+import 'Screens/editMoodScreen_screen.dart' as editmood;
+import 'Screens/viewPrevScreen_screen.dart' as history;
+import 'Screens/statisticsScreen_screen.dart' as statistics;
+import 'Screens/pastEntriesScreen_screen.dart' as pastentries;
+import 'Screens/allStatsScreen_screen.dart' as allstats;
+import 'Screens/differentStatsScreen_screen.dart' as diffstats;
+import 'Screens/predictionsScreen_screen.dart' as predictions;
+import 'Screens/overallStatsScreen_screen.dart' as overallstats;
+import 'Screens/adviceScreen_screen.dart' as advice;
+import 'Screens/personalityMenuScreen_screen.dart' as personmenu;
+import 'Screens/takePersonalityTestScreen_screen.dart' as test;
+import 'Screens/previousResultsScreen_screen.dart' as prevres;
+import 'Screens/typeDescriptionScreen_screen.dart' as typedesc;
 
 void main() {
-  runApp(SplashScreen_screen());
-}
-
-class SplashScreen_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          RaisedButton(
-            onPressed: () { Register_screen(); },
-            child: const Text(
-                'Register',
-                style: TextStyle(fontSize: 20)
-            ),
-          ),
-          const SizedBox(width: 100),
-          RaisedButton(
-            onPressed: () { Login_screen(); },
-            child: const Text(
-                'Log In',
-                style: TextStyle(fontSize: 20)
-            ),
-          ),
-        ]),
-            decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-            ),
-      ),
-    );
-  }
-}
-
-class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
-  @override
-  _LoginForm createState() => _LoginForm();
-}
-
-class _LoginForm extends State<MyStatefulWidget> {
-  final _formKey = GlobalKey<FormState>();
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Enter your email',
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter your email';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            decoration: const InputDecoration(
-              hintText: 'Password',
-            ),
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Please enter a password';
-              }
-              return null;
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                // Validate will return true if the form is valid, or false if
-                // the form is invalid.
-                if (_formKey.currentState.validate()) {
-                  // Process data.
-                }
-              },
-              child: Text('Log In'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Login_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Scaffold(
-        body: MyStatefulWidget(),
-        decoration: BoxDecoration(
-        gradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-
-    ),
-    )
-    );
-  }
-}
-
-class Register_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-        ),
-      ),
-    );
-  }
-}
-
-class MenuSelection_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-        ),
-      ),
-    );
-  }
-}
-
-class SelectDailyMood_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-        ),
-      ),
-    );
-  }
-}
-
-class EditMood_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-        ),
-      ),
-    );
-  }
-}
-
-class AddNotes_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
-        ),
-      ),
-    );
-  }
-}
-
-class ViewPrevious_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class Statistics_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class PastEntries_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class Advice_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class AllStats_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class DifferentStats_Screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class Predictions_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class OverallStats_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class PersonalityMenu_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class TakePersonalityTest_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class PreviousResults_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class TypeDescription_screen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  runApp(new MaterialApp(
+    home: splash.SplashScreen_screen(),
+    routes: <String, WidgetBuilder>{
+      "/splash" : (BuildContext context)=> new splash.SplashScreen_screen(),
+      "/login"  : (BuildContext context)=> new login.LoginScreen(),
+      "/register"  : (BuildContext context)=> new register.Register_screen(),
+      "/menu"  : (BuildContext context)=> new menu.MenuSelection_screen(),
+      "/selectmood"  : (BuildContext context)=> new selectmood.SelectDailyMood_screen(),
+      "/notes"  : (BuildContext context)=> new notes.AddNotes_screen(),
+      "/editmood"  : (BuildContext context)=> new editmood.EditMood_screen(),
+      "/history"  : (BuildContext context)=> new history.ViewPrevious_screen(),
+      "/statistics"  : (BuildContext context)=> new statistics.Statistics_screen(),
+      "/pastentries"  : (BuildContext context)=> new pastentries.PastEntries_screen(),
+      "/advice"  : (BuildContext context)=> new advice.Advice_screen(),
+      "/allstats"  : (BuildContext context)=> new allstats.AllStats_screen(),
+      "/diffstats"  : (BuildContext context)=> new diffstats.DifferentStats_Screen(),
+      "/predictions"  : (BuildContext context)=> new predictions.Predictions_screen(),
+      "/overstats"  : (BuildContext context)=> new overallstats.OverallStats_screen(),
+      "/personmenu"  : (BuildContext context)=> new personmenu.PersonalityMenu_screen(),
+      "/test"  : (BuildContext context)=> new test.TakePersonalityTest_screen(),
+      "/prevres"  : (BuildContext context)=> new prevres.PreviousResults_screen(),
+      "/typedesc"  : (BuildContext context)=> new typedesc.TypeDescription_screen(),
+      //add more routes here
+    },
+  ));
 }
