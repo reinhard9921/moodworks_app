@@ -42,6 +42,7 @@ class SplashScreen_screen extends StatelessWidget {
     );
   }
 }
+
 class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) : super(key: key);
   @override
@@ -98,7 +99,6 @@ class _LoginForm extends State<MyStatefulWidget> {
   }
 }
 
-
 class Login_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -112,6 +112,7 @@ class Login_screen extends StatelessWidget {
         colors: [Color.fromRGBO(255, 255, 255, 1), Color.fromRGBO(81, 121, 112, 1)])
 
     ),
+    )
     );
   }
 }
