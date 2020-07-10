@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 
-class screen extends StatelessWidget {
+class sscreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,3 +16,7 @@ class screen extends StatelessWidget {
     );
   }
 }
+
+final screen = ThemeData(
+  canvasColor: Colors.green
+);

@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/_screen.dart';
 import 'Screens/login_screen.dart' as login;
 import 'Screens/splashscreen_screen.dart' as splash;
 import 'Screens/registerscreen_screen.dart' as register;
@@ -22,6 +23,7 @@ import 'Screens/typeDescriptionScreen_screen.dart' as typedesc;
 
 void main() {
   runApp(new MaterialApp(
+
     home: splash.SplashScreen_screen(),
     routes: <String, WidgetBuilder>{
       "/splash" : (BuildContext context)=> new splash.SplashScreen_screen(),
