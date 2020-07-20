@@ -39,7 +39,7 @@ class Register_screen extends StatelessWidget {
                               fontSize: 30),
                         )),
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
                         controller: nameController,
                         decoration: InputDecoration(
@@ -49,7 +49,7 @@ class Register_screen extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
                         controller: nameController,
                         decoration: InputDecoration(
