@@ -44,7 +44,7 @@ class Register_screen extends StatelessWidget {
                         controller: nameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Email',
+                          labelText: 'Name',
                         ),
                       ),
                     ),
@@ -52,6 +52,39 @@ class Register_screen extends StatelessWidget {
                       padding: EdgeInsets.all(10),
                       child: TextField(
                         controller: nameController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Surname',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      child: TextField(
+                        obscureText: true,
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Age',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      child: TextField(
+                        obscureText: true,
+                        controller: passwordController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Email',
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                      child: TextField(
+                        obscureText: true,
+                        controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
@@ -65,7 +98,7 @@ class Register_screen extends StatelessWidget {
                         controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Age',
+                          labelText: 'Confirm Password',
                         ),
                       ),
                     ),
