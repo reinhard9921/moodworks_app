@@ -184,7 +184,7 @@ class LoginScreen extends StatelessWidget {
                         children: <Widget>[
                           FlatButton(
                             onPressed: () {
-                              //forgot password screen
+                              Navigator.of(context).pushNamed('/forgot');
                             },
                             textColor: Colors.blue,
                             child: Text('Forgot Password'),

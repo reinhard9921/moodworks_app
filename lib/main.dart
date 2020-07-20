@@ -20,6 +20,7 @@ import 'Screens/personalityMenuScreen_screen.dart' as personmenu;
 import 'Screens/takePersonalityTestScreen_screen.dart' as test;
 import 'Screens/previousResultsScreen_screen.dart' as prevres;
 import 'Screens/typeDescriptionScreen_screen.dart' as typedesc;
+import 'Screens/Forgotpasswordscreen_screen.dart' as forgotpassword;
 
 void main() {
   runApp(new MaterialApp(
@@ -45,6 +46,7 @@ void main() {
       "/test"  : (BuildContext context)=> new test.TakePersonalityTest_screen(),
       "/prevres"  : (BuildContext context)=> new prevres.PreviousResults_screen(),
       "/typedesc"  : (BuildContext context)=> new typedesc.TypeDescription_screen(),
+      "/forgot"  : (BuildContext context)=> new forgotpassword.forgotPassword(),
       //add more routes here
     },
   ));
