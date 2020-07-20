@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import '';
 import 'package:moodworksapp/Classes/User.dart';
 import 'dart:io';
 import 'package:moodworksapp/Classes/_screen.dart';
@@ -102,6 +103,7 @@ class LoginScreen extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -168,6 +170,7 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Login'),
                         onPressed: () {
+                          //setState(() => loading = true);
                           SignIn(nameController.text, passwordController.text).then((value) {
                             print(value);
                             if(value) {
