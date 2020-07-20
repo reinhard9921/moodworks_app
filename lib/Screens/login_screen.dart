@@ -22,7 +22,7 @@ class _State extends State<LoginPage> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : new Scaffold(
+    return loading ? Loading() :  Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
         elevation: 0.0,
