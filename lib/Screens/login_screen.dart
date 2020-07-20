@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/User.dart';
+import 'dart:io';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:moodworksapp/Screens/registerscreen_screen.dart';
 import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart';
@@ -97,6 +101,7 @@ class _State extends State<LoginPage> {
 class LoginScreen extends StatelessWidget {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -112,9 +117,9 @@ class LoginScreen extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                Color.fromRGBO(255, 255, 255, 1),
-                Color.fromRGBO(81, 121, 112, 1)
-              ])),
+                    Color.fromRGBO(255, 255, 255, 1),
+                    Color.fromRGBO(81, 121, 112, 1)
+                  ])),
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Center(
@@ -163,29 +168,37 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Login'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/menu');
+                          SignIn(nameController.text, passwordController.text).then((value) {
+                            print(value);
+                            if(value) {
+                              Navigator.of(context).pushNamed('/menu');
+                            }
+                            else{
+
+                            }
+                          });
                         },
                       )),
                   Container(
                       child: Column(
-                    children: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          //forgot password screen
-                        },
-                        textColor: Colors.blue,
-                        child: Text('Forgot Password'),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/register');
-                        },
-                        textColor: Colors.blue,
-                        child: Text('New to Moodworks?'),
-                      ),
-                    ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  )),
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              //forgot password screen
+                            },
+                            textColor: Colors.blue,
+                            child: Text('Forgot Password'),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/register');
+                            },
+                            textColor: Colors.blue,
+                            child: Text('New to Moodworks?'),
+                          ),
+                        ],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      )),
                 ],
               ),
             ),
@@ -194,4 +207,30 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+
+  Future<bool> SignIn(String email, password) async {
+
+    var jsonData = null;
+    var response = await http.get('http://api.moodworks.co.za/login?email=' + email + '&password=' +password);
+    if(response.statusCode == 200){
+      jsonData = json.decode(response.body);
+    }
+    Map<String, dynamic> user = jsonData;
+
+    var data = user['recordsets'][0];
+    var email_txt = data[0]['Email_Address'];
+    var password_txt = data[0]['Password'];
+
+    if(email == email_txt && password == password_txt)
+    {
+    return true;
+    }
+    else
+    {
+    return false;
+    }
+
+  }
+
 }
