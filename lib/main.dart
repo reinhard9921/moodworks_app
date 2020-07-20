@@ -28,7 +28,7 @@ void main() {
     home: splash.SplashScreen_screen(),
     routes: <String, WidgetBuilder>{
       "/splash" : (BuildContext context)=> new splash.SplashScreen_screen(),
-      "/login"  : (BuildContext context)=> new login.LoginScreen(),
+      "/login"  : (BuildContext context)=> new login.LoginPage(),
       "/register"  : (BuildContext context)=> new register.Register_screen(),
       "/menu"  : (BuildContext context)=> new menu.MenuSelection_screen(),
       "/selectmood"  : (BuildContext context)=> new selectmood.SelectDailyMood_screen(),
