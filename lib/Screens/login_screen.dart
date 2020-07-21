@@ -219,6 +219,9 @@ class LoginScreen extends StatelessWidget {
     if(response.statusCode == 200){
       jsonData = json.decode(response.body);
     }
+    else{
+      throw Exception('failed to get');
+    }
     Map<String, dynamic> user = jsonData;
 
     var data = user['recordsets'][0];
