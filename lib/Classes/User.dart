@@ -5,9 +5,9 @@ class User {
   String lastname;
   String email;
   String password;
-  String age;
+  int age;
 
-  User({int userID, String firstname, String lastname, String email, String password, String age}){
+  User({int userID, String firstname, String lastname, String email, String password, int age}){
     this.userID = userID;
     this.firstname = firstname;
     this.lastname = lastname;
@@ -24,17 +24,19 @@ class User {
       lastname: json['Last_Name'] as String,
       email: json['Email_Address'] as String,
       password: json['Password'] as String,
-      age: json['User_Age'] as String,
+      age: json['User_Age'] as int,
+
     );
+
   }
   Map<String, dynamic> toJson() =>
       {
-        'firstname': firstname,
-        'lastname': lastname,
-        'email': email,
-        'password': password,
-        'age': age,
-        'userid': userID,
+        'First_Name': firstname,
+        'Last_Name': lastname,
+        'Email_Address': email,
+        'Password': password,
+        'User_Age': age,
+        'User_ID': userID,
       };
 
 
