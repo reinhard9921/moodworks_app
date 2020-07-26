@@ -108,6 +108,20 @@ class MenuSelection_screen extends StatelessWidget {
                           Navigator.of(context).pushNamed('/login');
                         },
                       )),
+                  SizedBox(height: 20.0),
+                  Container(height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        textColor: Colors.white,
+                        color: Colors.black,
+                        child: Text('Edit/View Profile'),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/editprofile');
+                        },
+                      )),
                 ],
               ),
             ),
