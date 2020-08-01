@@ -6,7 +6,7 @@ import 'package:moodworksapp/Classes/User.dart';
 import 'dart:io';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:moodworksapp/Screens/registerscreen_screen.dart';
-import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart';
+import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart' as menu;
 
 class LoginPage extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
@@ -225,6 +225,7 @@ class LoginScreen extends StatelessWidget {
     Map<String, dynamic> user = jsonData;
 
     var data = user['recordsets'][0];
+    menu.getUserData(data[0]['First_Name']);
     var email_txt = data[0]['Email_Address'];
     var password_txt = data[0]['Password'];
 
