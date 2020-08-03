@@ -1,8 +1,13 @@
-
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Screens/login_screen.dart';
-
+import '';
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:moodworksapp/Share/loading.dart';
+import 'dart:io';
+import 'package:moodworksapp/Classes/_screen.dart';
+import 'package:moodworksapp/Screens/registerscreen_screen.dart';
+import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart';
 class Register_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -140,3 +145,15 @@ class Register_screen extends StatelessWidget {
         ));
   }
 }
+Future<bool> Register(String email, password, Int age) async {
+try{
+var jasonMap
+var jasonData
+var response = await http.get('http://api.moodworks.co.za/AddUser?email=' + email + '&password' + password + '&age' + age)
+
+}
+}
+
+
+
+
