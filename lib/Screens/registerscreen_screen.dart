@@ -1,19 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:moodworksapp/Screens/login_screen.dart';
-import '';
-import 'package:moodworksapp/Classes/User.dart';
-import 'package:moodworksapp/Share/loading.dart';
 import 'dart:io';
-import 'package:moodworksapp/Classes/_screen.dart';
-import 'package:moodworksapp/Screens/registerscreen_screen.dart';
-import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart';
+import 'package:http/http.dart' as http;
+
 class Register_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-     return new Scaffold(
+    return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
           elevation: 0.0,
@@ -26,9 +21,9 @@ class Register_screen extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color.fromRGBO(255, 255, 255, 1),
-                      Color.fromRGBO(81, 121, 112, 1)
-                    ])),
+                  Color.fromRGBO(255, 255, 255, 1),
+                  Color.fromRGBO(81, 121, 112, 1)
+                ])),
             child: Padding(
                 padding: EdgeInsets.all(10),
                 child: ListView(
@@ -107,7 +102,7 @@ class Register_screen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height:20.0),
+                    SizedBox(height: 20.0),
                     Container(
                         height: 50,
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -125,35 +120,43 @@ class Register_screen extends StatelessWidget {
                         )),
                     Container(
                         child: Row(
-                          children: <Widget>[
-                            FlatButton(
-                              textColor: Colors.blue,
-                              child: Text(
-                                'Already have an account?',
-                                //style: TextStyle(fontSize: 20),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('/login');
-                              },
-                            )
-                          ],
-                          mainAxisAlignment: MainAxisAlignment.center,
-                        ))
+                      children: <Widget>[
+                        FlatButton(
+                          textColor: Colors.blue,
+                          child: Text(
+                            'Already have an account?',
+                            //style: TextStyle(fontSize: 20),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/login');
+                          },
+                        )
+                      ],
+                      mainAxisAlignment: MainAxisAlignment.center,
+                    ))
                   ],
                 )),
           ),
         ));
   }
+
+  Future<bool> Register(
+      String email, password, firstname, lastname, int age) async {
+    try {
+      var response = await http.get(
+          'http://api.moodworks.co.za/AddUser?firstname=' +
+              firstname +
+              '&lastname=' +
+              lastname +
+              '&email=' +
+              email +
+              '&password=' +
+              password +
+              '&age=' +
+              age.toString() +
+              '&id=0');
+    } on Exception catch (_) {
+      return false;
+    }
+  }
 }
-Future<bool> Register(String email, password, Int age) async {
-try{
-var jasonMap
-var jasonData
-var response = await http.get('http://api.moodworks.co.za/AddUser?email=' + email + '&password' + password + '&age' + age)
-
-}
-}
-
-
-
-
