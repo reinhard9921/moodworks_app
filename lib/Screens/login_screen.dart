@@ -7,7 +7,7 @@ import 'package:moodworksapp/Share/loading.dart';
 import 'dart:io';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:moodworksapp/Screens/registerscreen_screen.dart';
-import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart';
+import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart' as menu;
 
 class LoginPage extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
@@ -145,8 +145,6 @@ class _State extends State<LoginPage> {
       }
 
       jsonData = jsonMap['recordset'];
-      print(jsonData);
-      print(jsonData.length);
       if (jsonData.length == 1) {
         var user = User.fromJson(jsonData[0]);
 

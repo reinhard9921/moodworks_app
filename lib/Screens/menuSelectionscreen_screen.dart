@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:flutter/material.dart';
+String firstName;
 
 class MenuSelection_screen extends StatelessWidget {
   @override
@@ -28,6 +29,17 @@ class MenuSelection_screen extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   Container(child: Image.asset('assets/images/MoodworksLogo.png')),
+                  SizedBox(height: 20.0),
+                  Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        firstName,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 30),
+                      )),
                   SizedBox(height: 20.0),
                   Container(
                       alignment: Alignment.topLeft,
@@ -130,4 +142,8 @@ class MenuSelection_screen extends StatelessWidget {
       ),
     );
   }
+}
+
+String getUserData(String username){
+  firstName = username;
 }
