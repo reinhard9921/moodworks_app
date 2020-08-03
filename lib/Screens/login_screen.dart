@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import '';
 import 'package:moodworksapp/Classes/User.dart';
+import 'package:moodworksapp/Share/loading.dart';
 import 'dart:io';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:moodworksapp/Screens/registerscreen_screen.dart';
@@ -17,96 +18,11 @@ class LoginPage extends StatefulWidget {
 class _State extends State<LoginPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: Text('Login Screen'),
-        ),
-        body: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 30),
-                    )),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'User Name',
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                  child: TextField(
-                    obscureText: true,
-                    controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                    ),
-                  ),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    //forgot password screen
-                  },
-                  textColor: Colors.blue,
-                  child: Text('Forgot Password'),
-                ),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.blue,
-                      child: Text('Login'),
-                      onPressed: () {
-//                        print(nameController.text);
-//                        print(passwordController.text);
-                      },
-                    )),
-                Container(
-                    child: Row(
-                  children: <Widget>[
-                    Text('Does not have account?'),
-                    FlatButton(
-                      textColor: Colors.blue,
-                      child: Text(
-                        'Register',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {
-                        //signup screen
-                      },
-                    )
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ))
-              ],
-            )));
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
   bool loading = false;
+
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
         elevation: 0.0,
@@ -119,9 +35,9 @@ class LoginScreen extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromRGBO(255, 255, 255, 1),
-                    Color.fromRGBO(81, 121, 112, 1)
-                  ])),
+                Color.fromRGBO(255, 255, 255, 1),
+                Color.fromRGBO(81, 121, 112, 1)
+              ])),
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Center(
@@ -170,38 +86,40 @@ class LoginScreen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Login'),
                         onPressed: () {
-                          //setState(() => loading = true);
-                          SignIn(nameController.text, passwordController.text).then((value) {
+                          setState(() => loading = true);
+                          SignIn(nameController.text, passwordController.text)
+                              .then((value) {
                             print(value);
-                            if(value) {
+                            if (value) {
+                              setState(() => loading = false);
                               Navigator.of(context).pushNamed('/menu');
-                            }
-                            else{
-
+                            } else {
+                              setState(() => loading = false);
+                              //incorrect username and password
                             }
                           });
                         },
                       )),
                   Container(
                       child: Column(
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/forgot');
-                            },
-                            textColor: Colors.blue,
-                            child: Text('Forgot Password'),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamed('/register');
-                            },
-                            textColor: Colors.blue,
-                            child: Text('New to Moodworks?'),
-                          ),
-                        ],
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      )),
+                    children: <Widget>[
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/forgot');
+                        },
+                        textColor: Colors.blue,
+                        child: Text('Forgot Password'),
+                      ),
+                      FlatButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/register');
+                        },
+                        textColor: Colors.blue,
+                        child: Text('New to Moodworks?'),
+                      ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  )),
                 ],
               ),
             ),
@@ -211,33 +129,35 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-
   Future<bool> SignIn(String email, password) async {
+    try {
+      var jsonMap;
+      var jsonData;
+      var response = await http.get('http://api.moodworks.co.za/login?email=' +
+          email +
+          '&password=' +
+          password);
 
-    var jsonData = null;
-    var response = await http.get('http://api.moodworks.co.za/login?email=' + email + '&password=' +password);
-    if(response.statusCode == 200){
-      jsonData = json.decode(response.body);
-    }
-    else{
-      throw Exception('failed to get');
-    }
-    Map<String, dynamic> user = jsonData;
+      if (response.statusCode == 200) {
+        jsonMap = json.decode(response.body);
+      } else {
+        throw Exception;
+      }
 
-    var data = user['recordsets'][0];
-    menu.getUserData(data[0]['First_Name']);
-    var email_txt = data[0]['Email_Address'];
-    var password_txt = data[0]['Password'];
+      jsonData = jsonMap['recordset'];
+      if (jsonData.length == 1) {
+        var user = User.fromJson(jsonData[0]);
 
-    if(email == email_txt && password == password_txt)
-    {
-    return true;
+        if (email == user.email && password == user.password) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } on Exception catch (_) {
+      return false;
     }
-    else
-    {
-    return false;
-    }
-
   }
-
 }
