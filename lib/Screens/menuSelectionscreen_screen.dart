@@ -4,9 +4,11 @@ import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:flutter/material.dart';
 String firstName;
 
+
 class MenuSelection_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 //      appBar: new AppBar(
 //        backgroundColor: Color.fromRGBO(255, 255, 255, 0),
@@ -34,7 +36,7 @@ class MenuSelection_screen extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        firstName,
+                        firstName.toString(),
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -63,6 +65,8 @@ class MenuSelection_screen extends StatelessWidget {
                         child: Text('Enter Todays Mood'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/selectmood');
+
+
                         },
                       )),
                   SizedBox(height: 20.0),

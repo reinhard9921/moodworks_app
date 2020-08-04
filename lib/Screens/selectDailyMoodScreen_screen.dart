@@ -42,142 +42,20 @@ class SelectDailyMood_screen extends StatelessWidget {
                       )),
                   SizedBox(height: 20.0),
                   Container(
-                    child: ListView(
-                      children: <Widget>[
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                        FlatButton(
-                          child: Row(
-                            children: <Widget>[
-                              Container(
-                                width: 30,
-                                height: 30,
-                                color: Colors.red,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                'Angry, Frustrated, Annoyed',
-                                style: TextStyle(fontSize: 20, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                      ],
-
-                    )
-
-                  ),
-                  Container(
-                    child: FutureBuilder(
+                    child: FutureBuilder<List>(
                       future: getMoodData(),
+                      initialData: List(),
                       builder: (context, snapshot) {
-                        if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
-
-                        return ListView(
-                          children: snapshot.data
-                              .map((mood) => ListTile(
-                            title: Text(mood.mood),
-                            subtitle: Text(mood.moodDescription),
-                            leading: CircleAvatar(
-                              child: Text(mood.mood[0],
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: mood.MoodColor,
-                                  )),
-                            ),
-                          ))
-                              .toList(),
+                        return snapshot.hasData ?
+                        new ListView.builder(
+                          padding: const EdgeInsets.all(10.0),
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, i) {
+                            return _buildRow(snapshot.data[i]);
+                          },
+                        )
+                            : Center(
+                          child: CircularProgressIndicator(),
                         );
                       },
                     ),
@@ -220,17 +98,23 @@ class SelectDailyMood_screen extends StatelessWidget {
       ),
     );
   }
-
+  Widget _buildRow(MoodInfo Mood) {
+    return new ListTile(
+      title: new Text(Mood.mood),
+    );
+  }
   Future<List<MoodInfo>> getMoodData() async {
     var jsonMap;
     var jsonData;
     var response = await http.get('http://localhost:4000/Mood_Type');
+    print('hello');
 
     if (response.statusCode == 200) {
       jsonMap = json.decode(response.body);
     } else {
       throw Exception;
     }
+    print('function 2');
 
     jsonData = jsonMap['recordset'];
 
