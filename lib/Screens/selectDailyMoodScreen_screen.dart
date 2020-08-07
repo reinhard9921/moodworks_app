@@ -40,7 +40,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        'Select Option',
+                        'Select Your Current Mood',
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -54,7 +54,8 @@ class SelectDailyMood_screen extends StatelessWidget {
                         children: <Widget>[
                           FlatButton(
                             onPressed: () {
-                              moodid = 1;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 1);
                             },
                             child: Row(
                               children: <Widget>[
@@ -75,7 +76,8 @@ class SelectDailyMood_screen extends StatelessWidget {
                           ),
                           FlatButton(
                             onPressed: () {
-                              moodid = 2;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 2);
                             },
                             child: Row(
                               children: <Widget>[
@@ -97,7 +99,9 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
 
-                              moodid = 3;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 3);
+
                             },
                             child: Row(
                               children: <Widget>[
@@ -119,7 +123,9 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
 
-                              moodid = 4;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 4);
+
                             },
                             child: Row(
                               children: <Widget>[
@@ -140,8 +146,8 @@ class SelectDailyMood_screen extends StatelessWidget {
                           ),
                           FlatButton(
                             onPressed: () {
-
-                              moodid = 5;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 5);
                             },
                             child: Row(
                               children: <Widget>[
@@ -163,7 +169,8 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
 
-                              moodid = 6;
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 6);
                             },
                             child: Row(
                               children: <Widget>[
@@ -190,22 +197,6 @@ class SelectDailyMood_screen extends StatelessWidget {
 
                   ),
 
-                  SizedBox(height: 20.0),
-                  Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        textColor: Colors.white,
-                        color: Colors.black,
-                        child: Text('Enter Todays Mood'),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/notes');
-                          selectMood.getUserID(user, moodid);
-                        },
-                      )),
                   SizedBox(height: 20.0),
                   Container(
                       height: 50,
