@@ -12,6 +12,7 @@ class MoodInfo {
     this.moodColour = moodColour;
   }
 
+
   factory MoodInfo.fromJson(Map<String, dynamic> json) {
     return MoodInfo(
       moodInfoid: json['Mood_Info_ID'] as int,

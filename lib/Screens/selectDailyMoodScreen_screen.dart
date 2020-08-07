@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Classes/MoodInfo.dart';
+import 'package:moodworksapp/Screens/addNotesScreen_screen.dart' as selectMood;
+
+var user = new User();
+var moodid = 0;
 
 class SelectDailyMood_screen extends StatelessWidget {
   @override
@@ -27,6 +31,8 @@ class SelectDailyMood_screen extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: Center(
               child: ListView(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
                 children: <Widget>[
                   Container(),
                   SizedBox(height: 20.0),
@@ -42,24 +48,148 @@ class SelectDailyMood_screen extends StatelessWidget {
                       )),
                   SizedBox(height: 20.0),
                   Container(
-                    child: FutureBuilder<List>(
-                      future: getMoodData(),
-                      initialData: List(),
-                      builder: (context, snapshot) {
-                        return snapshot.hasData ?
-                        new ListView.builder(
-                          padding: const EdgeInsets.all(10.0),
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, i) {
-                            return _buildRow(snapshot.data[i]);
-                          },
-                        )
-                            : Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      },
-                    ),
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              moodid = 1;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Angry, Frustrated, Annoyed',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              moodid = 2;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.purple,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Anxious',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              moodid = 3;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.yellow,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Energetic',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              moodid = 4;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Sad',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              moodid = 5;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Happy',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              moodid = 6;
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.black12,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Tired',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+                        ],
+
+                      )
+
                   ),
+
                   SizedBox(height: 20.0),
                   Container(
                       height: 50,
@@ -73,6 +203,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                         child: Text('Enter Todays Mood'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/notes');
+                          selectMood.getUserID(user, moodid);
                         },
                       )),
                   SizedBox(height: 20.0),
@@ -98,23 +229,19 @@ class SelectDailyMood_screen extends StatelessWidget {
       ),
     );
   }
-  Widget _buildRow(MoodInfo Mood) {
-    return new ListTile(
-      title: new Text(Mood.mood),
-    );
-  }
-  Future<List<MoodInfo>> getMoodData() async {
+
+
+/*
+  void getMoodData() async {
     var jsonMap;
     var jsonData;
     var response = await http.get('http://localhost:4000/Mood_Type');
-    print('hello');
 
     if (response.statusCode == 200) {
       jsonMap = json.decode(response.body);
     } else {
       throw Exception;
     }
-    print('function 2');
 
     jsonData = jsonMap['recordset'];
 
@@ -124,16 +251,15 @@ class SelectDailyMood_screen extends StatelessWidget {
         return MoodInfo.fromJson(item);
       }).toList();
 
-      return list;
+      return true;
     } else {
       return null;
     }
 
+  }*/
+}
 
+void getUserID(User user1){
+  user= user1;
 
-
-
-
-
-  }
 }

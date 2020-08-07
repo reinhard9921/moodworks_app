@@ -149,6 +149,7 @@ class _State extends State<LoginPage> {
         var user = User.fromJson(jsonData[0]);
 
         if (email == user.email && password == user.password) {
+          menu.getUserData(user);
           return true;
         } else {
           return false;

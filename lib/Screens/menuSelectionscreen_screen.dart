@@ -2,7 +2,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:flutter/material.dart';
-String firstName;
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart' as selectMood;
+
+var user = new User();
 
 
 class MenuSelection_screen extends StatelessWidget {
@@ -36,7 +39,7 @@ class MenuSelection_screen extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        firstName.toString(),
+                        user.firstname.toString(),
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -65,6 +68,7 @@ class MenuSelection_screen extends StatelessWidget {
                         child: Text('Enter Todays Mood'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/selectmood');
+                          selectMood.getUserID(user);
 
 
                         },
@@ -148,6 +152,6 @@ class MenuSelection_screen extends StatelessWidget {
   }
 }
 
-String getUserData(String username){
-  firstName = username;
+void getUserData(User user1){
+  user = user1;
 }

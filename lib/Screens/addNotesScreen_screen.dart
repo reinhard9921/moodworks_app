@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/MoodInfo.dart';
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
+
+var user = new User();
+var id = 0;
 class AddNotes_screen extends StatelessWidget {
+  TextEditingController notesController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +49,7 @@ class AddNotes_screen extends StatelessWidget {
                       )),
                   SizedBox(height: 20.0),
                   TextField(
+                    controller: notesController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                     ),
@@ -54,7 +66,15 @@ class AddNotes_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Enter Notes'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/selectmood');
+                          GetMoofInfo(id)
+                              .then((value) {
+                            print(value);
+                            var mood = value;
+                            print(mood.mood.toString());
+                            newMood(mood.mood.toString(), mood.moodDescription.toString(), notesController.text, user.userID, id);
+                          });
+
+                          Navigator.of(context).pushNamed('/menu');
                         },
                       )),
                 ],
@@ -65,4 +85,53 @@ class AddNotes_screen extends StatelessWidget {
       ),
     );
   }
+  void  newMood(String mood, description, notes, int userid, moodinfoid ) async {
+    try {
+      var jsonMap;
+      var jsonData;
+      var date = new DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      print('----------------------------------------------------------------------------------------------------------------------------------------------------------');
+      var response = await http.get('http://10.10.11.240:4000/AddMood_Log?mood=' + mood + '&date=' + formattedDate + '&description=' +description+ '&notes=' +notes+ '&userid=' + userid.toString() + '&moodinfoid=' + moodinfoid.toString());
+      print(formattedDate);
+      if (response.statusCode == 200) {
+      } else {
+        throw Exception;
+      }
+
+
+    } on Exception catch (_) {
+
+    }
+  }
+
+  Future<MoodInfo> GetMoofInfo(int id) async {
+    try {
+      var jsonMap;
+      var jsonData;
+      var response = await http.get("http://10.10.11.240:4000/Mood_Type?id=" + id.toString());
+
+      if (response.statusCode == 200) {
+        jsonMap = json.decode(response.body);
+      } else {
+        throw Exception;
+      }
+
+      jsonData = jsonMap['recordset'];
+      if (jsonData.length == 1) {
+        var mood = MoodInfo.fromJson(jsonData[0]);
+        return mood;
+      }
+
+    } on Exception catch (_) {
+      return null;
+    }
+  }
+
 }
+void getUserID(User user1, int moodid ){
+  user = user1;
+  id = moodid;
+
+}
+
