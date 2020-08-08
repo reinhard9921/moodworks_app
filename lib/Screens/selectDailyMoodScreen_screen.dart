@@ -164,6 +164,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                             onPressed: () {
 
                               moodid = 6;
+
                             },
                             child: Row(
                               children: <Widget>[

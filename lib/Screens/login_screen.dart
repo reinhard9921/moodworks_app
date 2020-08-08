@@ -147,7 +147,6 @@ class _State extends State<LoginPage> {
       jsonData = jsonMap['recordset'];
       if (jsonData.length == 1) {
         var user = User.fromJson(jsonData[0]);
-
         if (email == user.email && password == user.password) {
           menu.getUserData(user);
           return true;

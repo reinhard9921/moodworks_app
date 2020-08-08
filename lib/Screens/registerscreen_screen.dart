@@ -51,7 +51,6 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
-                        controller: nameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Surname',
@@ -61,8 +60,6 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
-                        obscureText: true,
-                        controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Age',
@@ -72,8 +69,6 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
-                        obscureText: true,
-                        controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Email',
@@ -84,7 +79,6 @@ class Register_screen extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
                         obscureText: true,
-                        controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Password',
@@ -95,7 +89,6 @@ class Register_screen extends StatelessWidget {
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
                         obscureText: true,
-                        controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Confirm Password',
