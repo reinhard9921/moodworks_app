@@ -7,7 +7,11 @@ class Register_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    TextEditingController surnameController = TextEditingController();
+    TextEditingController ageController = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController password1Controller = TextEditingController();
+    TextEditingController password2Controller = TextEditingController();
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
@@ -51,6 +55,7 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
+                        controller: surnameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Surname',
@@ -60,6 +65,7 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
+                        controller: ageController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Age',
@@ -69,6 +75,7 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Email',
@@ -78,6 +85,7 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
+                        controller: password1Controller,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -88,6 +96,7 @@ class Register_screen extends StatelessWidget {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
+                        controller: password2Controller,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -108,7 +117,12 @@ class Register_screen extends StatelessWidget {
                           color: Colors.black,
                           child: Text('Register'),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/login');
+                            if(password1Controller.text == password2Controller.text){
+                              Register(emailController.text, password1Controller.text, nameController.text, surnameController.text, int.parse(ageController.text)) ;
+                              Navigator.of(context).pushNamed('/login');
+                            }
+
+
                           },
                         )),
                     Container(
@@ -133,11 +147,10 @@ class Register_screen extends StatelessWidget {
         ));
   }
 
-  Future<bool> Register(
-      String email, password, firstname, lastname, int age) async {
-    try {
+  Future<bool> Register(String email, password, firstname, lastname, int age) async {
+
       var response = await http.get(
-          'http://api.moodworks.co.za/AddUser?firstname=' +
+          'http://10.10.11.240:4000/AddUser?firstname=' +
               firstname +
               '&lastname=' +
               lastname +
@@ -148,8 +161,5 @@ class Register_screen extends StatelessWidget {
               '&age=' +
               age.toString() +
               '&id=0');
-    } on Exception catch (_) {
-      return false;
-    }
   }
 }
