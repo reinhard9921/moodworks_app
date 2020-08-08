@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:moodworksapp/Classes/MoodLog.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Classes/MoodInfo.dart';
 import 'package:moodworksapp/Screens/addNotesScreen_screen.dart' as selectMood;
+import 'package:moodworksapp/Screens/editMoodScreen_screen.dart' as mood;
 
 var user = new User();
 var moodid = 0;
+var moodLog = new MoodLog();
 
 class SelectDailyMood_screen extends StatelessWidget {
   @override
@@ -55,7 +58,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 1);
+                              selectMood.getUserID(user, 1, 0, 0);
                             },
                             child: Row(
                               children: <Widget>[
@@ -77,7 +80,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 2);
+                              selectMood.getUserID(user, 2, 0, 0);
                             },
                             child: Row(
                               children: <Widget>[
@@ -100,7 +103,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                             onPressed: () {
 
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 3);
+                              selectMood.getUserID(user, 3, 0, 0);
 
                             },
                             child: Row(
@@ -124,7 +127,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                             onPressed: () {
 
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 4);
+                              selectMood.getUserID(user, 4, 0, 0);
 
                             },
                             child: Row(
@@ -147,7 +150,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                           FlatButton(
                             onPressed: () {
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 5);
+                              selectMood.getUserID(user, 5, 0, 0);
                             },
                             child: Row(
                               children: <Widget>[
@@ -170,7 +173,7 @@ class SelectDailyMood_screen extends StatelessWidget {
                             onPressed: () {
 
                               Navigator.of(context).pushNamed('/notes');
-                              selectMood.getUserID(user, 6);
+                              selectMood.getUserID(user, 6, 0, 0);
                             },
                             child: Row(
                               children: <Widget>[
@@ -209,7 +212,15 @@ class SelectDailyMood_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Edit Todays Mood'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/editmood');
+                          EditMood()
+                              .then((value) {
+                            moodLog = value;
+                            Navigator.of(context).pushNamed('/editmood');
+                            mood.getUserID(user, moodLog.moodID);
+                          });
+
+
+
                         },
                       )),
                 ],
@@ -222,11 +233,11 @@ class SelectDailyMood_screen extends StatelessWidget {
   }
 
 
-/*
-  void getMoodData() async {
+
+  Future<MoodLog> EditMood() async {
     var jsonMap;
     var jsonData;
-    var response = await http.get('http://localhost:4000/Mood_Type');
+    var response = await http.get('http://10.10.11.240:4000/EditMood_ID?id=' + user.userID.toString());
 
     if (response.statusCode == 200) {
       jsonMap = json.decode(response.body);
@@ -237,17 +248,12 @@ class SelectDailyMood_screen extends StatelessWidget {
     jsonData = jsonMap['recordset'];
 
     if (jsonData.length == 1) {
+        return MoodLog.fromJson(jsonData[0]);
 
-      List<MoodInfo> list = jsonData.map((item) {
-        return MoodInfo.fromJson(item);
-      }).toList();
-
-      return true;
     } else {
-      return null;
     }
 
-  }*/
+  }
 }
 
 void getUserID(User user1){

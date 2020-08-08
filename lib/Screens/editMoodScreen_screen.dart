@@ -1,5 +1,10 @@
 
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:moodworksapp/Screens/addNotesScreen_screen.dart' as selectMood;
+
+var user = new User();
+var moodid = 0;
 
 class EditMood_screen extends StatelessWidget {
   @override
@@ -38,133 +43,157 @@ class EditMood_screen extends StatelessWidget {
                             fontSize: 30),
                       )),
                   SizedBox(height: 20.0),
-                  Column(
-                    children: <Widget>[
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                      FlatButton(
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 30,
-                              height: 30,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10.0,
-                            ),
-                            Text(
-                              'Angry, Frustrated, Annoyed',
-                              style: TextStyle(fontSize: 20, color: Colors.black),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20.0),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        textColor: Colors.white,
-                        color: Colors.black,
-                        child: Text('Edit Todays Mood'),
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/notes');
-                        },
-                      )),
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              selectMood.getUserID(user, 1, 1, moodid);
+                              Navigator.of(context).pushNamed('/notes');
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Angry, Frustrated, Annoyed',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 2, 1, moodid);
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.purple,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Anxious',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 3, 1, moodid);
+
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.yellow,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Energetic',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 4, 1, moodid);
+
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Sad',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 5, 1, moodid);
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.white,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Happy',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+
+                              Navigator.of(context).pushNamed('/notes');
+                              selectMood.getUserID(user, 6, 1, moodid);
+                            },
+                            child: Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  color: Colors.black12,
+                                ),
+                                SizedBox(
+                                  width: 10.0,
+                                ),
+                                Text(
+                                  'Tired',
+                                  style: TextStyle(fontSize: 20, color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
+
+
+                        ],
+
+                      )
+
+                  ),
+
+
                 ],
               ),
             ),
@@ -173,4 +202,8 @@ class EditMood_screen extends StatelessWidget {
       ),
     );
   }
+}
+void getUserID(User user1, int moodID){
+  user= user1;
+  moodid = moodID;
 }

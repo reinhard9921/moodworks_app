@@ -5,12 +5,15 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart';
 
 var user = new User();
 var id = 0;
+var actiontype = 0;
+var moodLogID = 0;
+
 class AddNotes_screen extends StatelessWidget {
   TextEditingController notesController = TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +30,9 @@ class AddNotes_screen extends StatelessWidget {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Color.fromRGBO(255, 255, 255, 1),
-                    Color.fromRGBO(81, 121, 112, 1)
-                  ])),
+                Color.fromRGBO(255, 255, 255, 1),
+                Color.fromRGBO(81, 121, 112, 1)
+              ])),
           child: Padding(
             padding: EdgeInsets.all(10),
             child: Center(
@@ -51,7 +54,7 @@ class AddNotes_screen extends StatelessWidget {
                   TextField(
                     controller: notesController,
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(),
+                      border: OutlineInputBorder(),
                     ),
                   ),
                   SizedBox(height: 20.0),
@@ -66,14 +69,25 @@ class AddNotes_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Enter Notes'),
                         onPressed: () {
-                          GetMoofInfo(id)
-                              .then((value) {
-                            print(value);
+                          GetMoofInfo(id).then((value) {
                             var mood = value;
-                            print(mood.mood.toString());
-                            newMood(mood.mood.toString(), mood.moodDescription.toString(), notesController.text, user.userID, id);
+                            if (actiontype == 1) {
+                              EditMood(
+                                  moodLogID,
+                                  user.userID,
+                                  mood.moodInfoid,
+                                  mood.mood.toString(),
+                                  notesController.text,
+                                  mood.moodDescription.toString());
+                            } else {
+                              newMood(
+                                  mood.mood.toString(),
+                                  mood.moodDescription.toString(),
+                                  notesController.text,
+                                  user.userID,
+                                  id);
+                            }
                           });
-
                           Navigator.of(context).pushNamed('/menu');
                         },
                       )),
@@ -85,31 +99,39 @@ class AddNotes_screen extends StatelessWidget {
       ),
     );
   }
-  void  newMood(String mood, description, notes, int userid, moodinfoid ) async {
+
+  void newMood(String mood, description, notes, int userid, moodinfoid) async {
     try {
       var jsonMap;
       var jsonData;
       var date = new DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      print('----------------------------------------------------------------------------------------------------------------------------------------------------------');
-      var response = await http.get('http://10.10.11.240:4000/AddMood_Log?mood=' + mood + '&date=' + formattedDate + '&description=' +description+ '&notes=' +notes+ '&userid=' + userid.toString() + '&moodinfoid=' + moodinfoid.toString());
-      print(formattedDate);
+      var response = await http.get(
+          'http://10.10.11.240:4000/AddMood_Log?mood=' +
+              mood +
+              '&date=' +
+              formattedDate +
+              '&description=' +
+              description +
+              '&notes=' +
+              notes +
+              '&userid=' +
+              userid.toString() +
+              '&moodinfoid=' +
+              moodinfoid.toString());
       if (response.statusCode == 200) {
       } else {
         throw Exception;
       }
-
-
-    } on Exception catch (_) {
-
-    }
+    } on Exception catch (_) {}
   }
 
   Future<MoodInfo> GetMoofInfo(int id) async {
     try {
       var jsonMap;
       var jsonData;
-      var response = await http.get("http://10.10.11.240:4000/Mood_Type?id=" + id.toString());
+      var response = await http
+          .get("http://10.10.11.240:4000/Mood_Type?id=" + id.toString());
 
       if (response.statusCode == 200) {
         jsonMap = json.decode(response.body);
@@ -122,16 +144,42 @@ class AddNotes_screen extends StatelessWidget {
         var mood = MoodInfo.fromJson(jsonData[0]);
         return mood;
       }
-
     } on Exception catch (_) {
       return null;
     }
   }
 
+  void EditMood(int moodID, int userID, int moodInfoID, String physicalMood,
+      String notes, String moodDescription) async {
+
+      var date = new DateTime.now();
+      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      var response = await http.get("http://10.10.11.240:4000/EditMood?mood=" +
+          physicalMood +
+          "&date=" +
+          formattedDate +
+          "&description=" +
+          moodDescription +
+          "&notes=" +
+          notes +
+          "&userid=" +
+          userID.toString() +
+          "&moodinfoid=" +
+          moodInfoID.toString() +
+          "&moodlogid=" +
+          moodLogID.toString());
+
+      if (response.statusCode == 200) {
+      } else {
+        throw Exception;
+      }
+
+  }
 }
-void getUserID(User user1, int moodid ){
+
+void getUserID(User user1, int moodid, int actionType, int moodlogid) {
   user = user1;
   id = moodid;
-
+  actiontype = actionType;
+  moodLogID = moodlogid;
 }
-
