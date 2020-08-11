@@ -128,14 +128,13 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
           ),
         ));
   }
-  Void EditUserProfile(String firstname, lastname, email, password, int age) async{
+  Void EditUserProfile(String Name, Surname, email, password, int age) async{
 
   var response = await http.get(
-  'http://10.10.11.240:4000/EditUser?
-    firstname=' +
-    firstname +
-   '&lastname=' +
-    lastname +
+  'http://10.10.11.240:4000/EditUser? Name=' +
+    Name +
+   '&Surname=' +
+    Surname +
     '&email=' +
     email +
     '&password=' +
