@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/User.dart';
 
+
+var user = new User();
 class EditProfileScreen_screen extends StatefulWidget {
   //MyStatefulWidget({Key key}) : super(key: key);
 
   @override
   EditProfileScreen createState() => EditProfileScreen();
 }
+
+
 
 class EditProfileScreen extends State<EditProfileScreen_screen> {
   String dropdownValue = 'Male';
@@ -122,8 +127,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
   Feature<bool> EditProfile(String firstname, lastname, email, password, int age) async{
 
   var response = await http.get(
-  'http://10.10.11.240:4000/EditUser?
-    firstname=' +
+  'http://10.10.11.240:4000/EditUser?firstname=' +
     firstname +
    '&lastname=' +
     lastname +
@@ -138,3 +142,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
 }
 
 }
+void getUser(User user1){
+user = user1;
+}
+

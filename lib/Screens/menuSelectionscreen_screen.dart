@@ -4,6 +4,7 @@ import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart' as selectMood;
+import 'package:moodworksapp/Screens/editProfileScreen_screen.dart' as EditUser;
 
 var user = new User();
 
@@ -140,6 +141,7 @@ class MenuSelection_screen extends StatelessWidget {
                         child: Text('Edit/View Profile'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/editprofile');
+                          EditUser.getUser(user);
                         },
                       )),
                 ],
