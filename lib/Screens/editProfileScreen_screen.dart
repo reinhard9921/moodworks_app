@@ -135,13 +135,22 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
           ),
         ));
   }
-  Feature<bool> EditProfile(String firstname, password) async{
+  Feature<bool> EditProfile(String firstname, lastname, email, password, int age) async{
 
   var response = await http.get(
-  'http://10.10.11.240:4000/EditUser?firstname=' +
-   firstname +
-   '&password=' +
-   password);
+  'http://10.10.11.240:4000/EditUser?
+    firstname=' +
+    firstname +
+   '&lastname=' +
+    lastname +
+    '&email=' +
+    email +
+    '&password=' +
+    password +
+    '&age=' +
+    age.toString() +
+    '&id=0');
+
 }
 
 }
