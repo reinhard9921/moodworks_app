@@ -119,7 +119,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                           textColor: Colors.white,
                           color: Colors.black,
                           child: Text('Save Changes'),
-                          onPressed: EditProfile() {
+                          onPressed: EditUserProfile() {
                             Navigator.of(context).pushNamed('/login');
                           },
                         )),
@@ -128,7 +128,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
           ),
         ));
   }
-  Void EditProfile(String firstname, lastname, email, password, int age) async{
+  Void EditUserProfile(String firstname, lastname, email, password, int age) async{
 
   var response = await http.get(
   'http://10.10.11.240:4000/EditUser?
