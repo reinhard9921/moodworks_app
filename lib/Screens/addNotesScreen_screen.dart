@@ -107,7 +107,7 @@ class AddNotes_screen extends StatelessWidget {
       var date = new DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(date);
       var response = await http.get(
-          'http://10.10.11.240:4000/AddMood_Log?mood=' +
+          'http://api.moodworx.co.za:2461/AddMood_Log?mood=' +
               mood +
               '&date=' +
               formattedDate +
@@ -131,7 +131,7 @@ class AddNotes_screen extends StatelessWidget {
       var jsonMap;
       var jsonData;
       var response = await http
-          .get("http://10.10.11.240:4000/Mood_Type?id=" + id.toString());
+          .get("http://api.moodworx.co.za:2461/Mood_Type?id=" + id.toString());
 
       if (response.statusCode == 200) {
         jsonMap = json.decode(response.body);
@@ -154,7 +154,7 @@ class AddNotes_screen extends StatelessWidget {
 
       var date = new DateTime.now();
       String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-      var response = await http.get("http://10.10.11.240:4000/EditMood?mood=" +
+      var response = await http.get("http://api.moodworx.co.za:2461/EditMood?mood=" +
           physicalMood +
           "&date=" +
           formattedDate +

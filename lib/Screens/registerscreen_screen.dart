@@ -150,7 +150,7 @@ class Register_screen extends StatelessWidget {
   Future<bool> Register(String email, password, firstname, lastname, int age) async {
 
       var response = await http.get(
-          'http://10.10.11.240:4000/AddUser?firstname=' +
+          'http://api.moodworx.co.za:2461/AddUser?firstname=' +
               firstname +
               '&lastname=' +
               lastname +

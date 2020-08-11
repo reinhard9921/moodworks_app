@@ -237,7 +237,7 @@ class SelectDailyMood_screen extends StatelessWidget {
   Future<MoodLog> EditMood() async {
     var jsonMap;
     var jsonData;
-    var response = await http.get('http://10.10.11.240:4000/EditMood_ID?id=' + user.userID.toString());
+    var response = await http.get('http://api.moodworx.co.za:2461/EditMood_ID?id=' + user.userID.toString());
 
     if (response.statusCode == 200) {
       jsonMap = json.decode(response.body);
