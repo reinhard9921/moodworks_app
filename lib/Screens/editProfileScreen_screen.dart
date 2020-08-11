@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/MoodInfo.dart';
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class EditProfileScreen_screen extends StatefulWidget {
   //MyStatefulWidget({Key key}) : super(key: key);
@@ -8,12 +13,16 @@ class EditProfileScreen_screen extends StatefulWidget {
 }
 
 class EditProfileScreen extends State<EditProfileScreen_screen> {
-  String dropdownValue = 'Male';
+
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+       TextEditingController nameController = TextEditingController();
+       TextEditingController surnameController = TextEditingController();
+       TextEditingController ageController = TextEditingController();
+       TextEditingController emailController = TextEditingController();
+       TextEditingController passwordController = TextEditingController();
+
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
@@ -57,7 +66,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
-                        controller: nameController,
+                        controller: surnameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Surname',
@@ -68,7 +77,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
                         obscureText: true,
-                        controller: passwordController,
+                        controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           labelText: 'Email',
@@ -110,7 +119,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                           textColor: Colors.white,
                           color: Colors.black,
                           child: Text('Save Changes'),
-                          onPressed: () {
+                          onPressed: EditProfile() {
                             Navigator.of(context).pushNamed('/login');
                           },
                         )),
@@ -119,7 +128,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
           ),
         ));
   }
-  Feature<bool> EditProfile(String firstname, lastname, email, password, int age) async{
+  Void EditProfile(String firstname, lastname, email, password, int age) async{
 
   var response = await http.get(
   'http://10.10.11.240:4000/EditUser?
