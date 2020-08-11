@@ -88,30 +88,14 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                      child: DropdownButton<String>(
-
-                        value: dropdownValue,
-                        icon: Icon(Icons.arrow_downward),
-                       // iconSize: 24,
-                        //elevation: 16,
-                        style: TextStyle(color: Colors.black ),
-                        underline: Container(
-                          height: 2,
-                          color: Colors.black,
-                        ),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                        items: <String>['Male', 'Female', 'Prefer not to say']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
+                    child: TextField(
+                    controller: ageController,
+                    decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Age',
 
                           );
-                        }).toList(),
+
                       ),
                     ),
                     SizedBox(height: 20.0),
