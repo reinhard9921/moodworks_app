@@ -23,6 +23,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
        TextEditingController emailController = TextEditingController();
        TextEditingController passwordController = TextEditingController();
 
+
     return new Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
