@@ -11,7 +11,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
   String dropdownValue = 'Male';
   @override
   Widget build(BuildContext context) {
-
+.
     TextEditingController nameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return new Scaffold(
