@@ -4,7 +4,7 @@ import 'package:moodworksapp/Classes/User.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+var user = User();
 class EditProfileScreen_screen extends StatefulWidget {
   //MyStatefulWidget({Key key}) : super(key: key);
 
@@ -96,6 +96,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         ),
                       ),
                     ),
+
                     Container(
                       padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                     child: TextField(
@@ -104,7 +105,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                     border: OutlineInputBorder(),
                     labelText: 'Age',
 
-                          );
+                          ),
 
                       ),
                     ),
@@ -120,16 +121,18 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                           textColor: Colors.white,
                           color: Colors.black,
                           child: Text('Save Changes'),
-                          onPressed: EditUserProfile() {
+                          onPressed:() {
+                            EditUserProfile(nameController.text , surnameController.text, emailController.text, passwordController.text, int.parse(ageController.text));
                             Navigator.of(context).pushNamed('/login');
                           },
                         )),
+
                   ],
                 )),
           ),
         ));
   }
-  Void EditUserProfile(String Name, Surname, email, password, int age) async{
+  Future<void> EditUserProfile(String Name, Surname, email, password, int age) async{
 
   var response = await http.get(
   'http://10.10.11.240:4000/EditUser? Name=' +
@@ -146,4 +149,8 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
 
 }
 
+}
+
+void getUser(User user1){
+  user = user1;
 }

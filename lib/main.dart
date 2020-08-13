@@ -44,7 +44,7 @@ void main() {
       "/predictions"  : (BuildContext context)=> new predictions.Predictions_screen(),
       "/overstats"  : (BuildContext context)=> new overallstats.OverallStats_screen(),
       "/personmenu"  : (BuildContext context)=> new personmenu.PersonalityMenu_screen(),
-      "/test"  : (BuildContext context)=> new test.TakePersonalityTest_screen(),
+      "/test"  : (BuildContext context)=> new test.PersonalityTest(),
       "/prevres"  : (BuildContext context)=> new prevres.PreviousResults_screen(),
       "/typedesc"  : (BuildContext context)=> new typedesc.TypeDescription_screen(),
       "/forgot"  : (BuildContext context)=> new forgotpassword.forgotPassword(),
