@@ -25,6 +25,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
 
 
     return new Scaffold(
+      
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
           elevation: 0.0,
@@ -60,7 +61,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: nameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Name',
+                          labelText: user.Name,
                         ),
                       ),
                     ),
@@ -70,7 +71,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: surnameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Surname',
+                          labelText:  user.Surname,
                         ),
                       ),
                     ),
@@ -81,7 +82,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Email',
+                          labelText: user.Email,
                         ),
                       ),
                     ),
@@ -92,7 +93,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: 'Password',
+                          labelText: user.Password,
                         ),
                       ),
                     ),
@@ -103,7 +104,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                     controller: ageController,
                     decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Age',
+                    labelText: user.Age,
 
                           ),
 
@@ -153,4 +154,5 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
 
 void getUser(User user1){
   user = user1;
+
 }
