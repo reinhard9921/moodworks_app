@@ -61,7 +61,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: nameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: user.Name,
+                          labelText: user.firstname,
                         ),
                       ),
                     ),
@@ -71,7 +71,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: surnameController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText:  user.Surname,
+                          labelText:  user.lastname,
                         ),
                       ),
                     ),
@@ -82,7 +82,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: emailController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: user.Email,
+                          labelText: user.email,
                         ),
                       ),
                     ),
@@ -93,7 +93,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         controller: passwordController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(),
-                          labelText: user.Password,
+                          labelText: user.password,
                         ),
                       ),
                     ),
@@ -104,7 +104,7 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                     controller: ageController,
                     decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: user.Age,
+                    labelText: user.age.toString(),
 
                           ),
 

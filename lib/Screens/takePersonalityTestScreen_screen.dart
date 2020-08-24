@@ -41,10 +41,10 @@ class _State extends State<PersonalityTest> {
   PersonalityTest question;
   List<PersonalityTest> results;
   ListTile _buildItemsForListView(BuildContext context, int index) {
- //   return ListTile(
- //     title: _personality[index].,
- //     subtitle: Text(_personality[index].question, style: TextStyle(fontSize: 18)),
- //   );
+    return ListTile(
+      title: _personality[index],
+      subtitle: Text(_personality[index].toString(), style: TextStyle(fontSize: 18)),
+   );
   }
 
   void _populateNewsQuestion() {
@@ -64,7 +64,6 @@ class _State extends State<PersonalityTest> {
     if (res.statusCode == 200) {
     jsonMap = json.decode(res.body);
     } else {
-    throw Exception;
     }
 
     jsonData = jsonMap['recordset'];

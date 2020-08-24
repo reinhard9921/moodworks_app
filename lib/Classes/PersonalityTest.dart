@@ -1,16 +1,26 @@
 class PersonalityTest {
 
-  int userID;
-  String testResult;
-  String personalityType;
-  String personalityTypeDescription;
+  int questionNum;
+  String question;
+  String letter;
 
-  PersonalityTest({int userID, String testResult, String personalityType, String personalityTypeDescription}){
-    this.userID = userID;
-    this.testResult = testResult;
-    this.personalityType = personalityType;
-    this.personalityTypeDescription = personalityTypeDescription;
+  PersonalityTest({int questionNum, String question, String letter}){
+    this.questionNum = questionNum;
+    this.question = question;
+    this.letter = letter;
+
 
   }
 
+  factory PersonalityTest.fromJson(Map<String, dynamic> json) {
+    return PersonalityTest(
+
+
+    );
+
+  }
+  Map<String, dynamic> toJson() =>
+      {
+
+      };
 }
