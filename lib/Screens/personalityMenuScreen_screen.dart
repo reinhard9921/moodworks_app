@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/Screens/takePersonalityTestScreen_screen.dart' as test;
 
 class PersonalityMenu_screen extends StatelessWidget {
   @override
@@ -48,7 +49,7 @@ class PersonalityMenu_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Take Personality Test'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/test');
+                          test.fetchPersonalityTest().then((value) => Navigator.of(context).pushNamed('/test'));
                         },
                       )),
                   SizedBox(height: 20.0),
