@@ -118,7 +118,9 @@ class Register_screen extends StatelessWidget {
                           child: Text('Register'),
                           onPressed: () {
                             if(password1Controller.text == password2Controller.text){
-                              Register(emailController.text, password1Controller.text, nameController.text, surnameController.text, int.parse(ageController.text)) ;
+                              Register(emailController.text, password1Controller.text,
+                                  nameController.text, surnameController.text,
+                                  int.parse(ageController.text)) ;
                               Navigator.of(context).pushNamed('/login');
                             }
 
