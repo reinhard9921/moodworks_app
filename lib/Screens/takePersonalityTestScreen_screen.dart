@@ -14,6 +14,7 @@ class TakePersonalityTest extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => fetchPersonalityTest(questionNum));
     return new PersonalityTestState();
 }
 }
@@ -46,47 +47,47 @@ class PersonalityTestState extends State<TakePersonalityTest> {
     );
   }
 
-  Future<bool> count() async{
-    questionNum++;
-    return true;
-   
-  }
   void updateQuestion(int num){
 
 
     setState(() {
 
-      fetchPersonalityTest().then((value) => count());
-      if(questionNum == 44){
-        Navigator.of(context).pushNamed('/personmenu');
-      }
-      else
-      {
-        if(question.letter.toString() == 'C'){
-          c += num;
-        }
-        if(question.letter.toString() == 'A'){
-          a += num;
-        }
-        if(question.letter.toString() == 'E'){
-          e += num;
-        }
-        if(question.letter.toString() == 'N'){
-          n += num;
-        }
-        if(question.letter.toString() == 'O'){
-          o += num;
-        }
+      fetchPersonalityTest(questionNum).then((value) => calculateType(num));
+      
 
-        print("C = " + c.toString() + ", A = " + a.toString() + ", E = " + e.toString() + ", N = " + n.toString() + ", O = " + o.toString());
-        print(questionNum);
-      }
     });
+  }
+  Future<bool> calculateType(int num){
+    if(questionNum == 44){
+      Navigator.of(context).pushNamed('/personmenu');
+    }
+    else
+    {
+      if(question.letter.toString() == 'C'){
+        c += num;
+      }
+      if(question.letter.toString() == 'A'){
+        a += num;
+      }
+      if(question.letter.toString() == 'E'){
+        e += num;
+      }
+      if(question.letter.toString() == 'N'){
+        n += num;
+      }
+      if(question.letter.toString() == 'O'){
+        o += num;
+      }
+
+      print("C = " + c.toString() + ", A = " + a.toString() + ", E = " + e.toString() + ", N = " + n.toString() + ", O = " + o.toString());
+      print("First " + questionNum.toString());
+    }
   }
 
 }
 
-Future<bool> fetchPersonalityTest() async {
+Future<bool> fetchPersonalityTest(int num) async {
+  print("Second " + questionNum.toString());
   var jsonMap;
   var jsonData;
   var res = await http.get("http://api.moodworx.co.za:2461/Personality_Test");
@@ -95,7 +96,9 @@ Future<bool> fetchPersonalityTest() async {
   } else {}
   jsonData = jsonMap['recordset'];
   if (jsonData.length >= 1) {
-    question = PersonalityTest.fromJson(jsonData[questionNum]);
+    question = PersonalityTest.fromJson(jsonData[num]);
+    questionNum++;
     return true;
   }
 }
+

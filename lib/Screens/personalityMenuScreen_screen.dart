@@ -49,7 +49,7 @@ class PersonalityMenu_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Take Personality Test'),
                         onPressed: () {
-                          test.fetchPersonalityTest().then((value) => Navigator.of(context).pushNamed('/test'));
+                          test.fetchPersonalityTest(test.questionNum).then((value) => Navigator.of(context).pushNamed('/test'));
                         },
                       )),
                   SizedBox(height: 20.0),
