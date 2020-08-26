@@ -34,11 +34,11 @@ class PersonalityTestState extends State<TakePersonalityTest> {
               new Padding(padding: EdgeInsets.all(20.0)),
               new Text(question.question),
               new Row(),
-              new RaisedButton(onPressed: () => updateQuestion(5), child: new Text("1")),
-              new RaisedButton(onPressed: () => updateQuestion(4), child: new Text("2")),
+              new RaisedButton(onPressed: () => updateQuestion(1), child: new Text("1")),
+              new RaisedButton(onPressed: () => updateQuestion(2), child: new Text("2")),
               new RaisedButton(onPressed: () => updateQuestion(3), child: new Text("3")),
-              new RaisedButton(onPressed: () => updateQuestion(2), child: new Text("4")),
-              new RaisedButton(onPressed: () => updateQuestion(1), child: new Text("5")),
+              new RaisedButton(onPressed: () => updateQuestion(4), child: new Text("4")),
+              new RaisedButton(onPressed: () => updateQuestion(5), child: new Text("5")),
 
             ],
           ),
@@ -64,18 +64,33 @@ class PersonalityTestState extends State<TakePersonalityTest> {
     else
     {
       if(question.letter.toString() == 'C'){
-        c += num;
+        c += reverse(num);
       }
       if(question.letter.toString() == 'A'){
-        a += num;
+        a += reverse(num);
       }
       if(question.letter.toString() == 'E'){
-        e += num;
+        e += reverse(num);
       }
       if(question.letter.toString() == 'N'){
-        n += num;
+        n += reverse(num);
       }
       if(question.letter.toString() == 'O'){
+        o += reverse(num);
+      }
+      if(question.letter.toString() == 'c'){
+        c += num;
+      }
+      if(question.letter.toString() == 'a'){
+        a += num;
+      }
+      if(question.letter.toString() == 'e'){
+        e += num;
+      }
+      if(question.letter.toString() == 'n'){
+        n += num;
+      }
+      if(question.letter.toString() == 'o'){
         o += num;
       }
 
@@ -83,7 +98,24 @@ class PersonalityTestState extends State<TakePersonalityTest> {
       print("First " + questionNum.toString());
     }
   }
+  int reverse(int number){
+    if(number == 5){
+      return 1;
+    }
+    if(number == 4){
+      return 2;
+    }
+    if(number == 3){
+      return 3;
+    }
+    if(number == 2){
+      return 4;
+    }
+    if(number == 1){
+      return 5;
+    }
 
+  }
 }
 
 Future<bool> fetchPersonalityTest(int num) async {
