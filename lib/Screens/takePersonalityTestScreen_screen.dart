@@ -10,9 +10,9 @@ var user = new User();
 var questionNum = 0;
 var question;
 var c = 0, a = 0, e = 0, n = 0, o = 0;
+
 class TakePersonalityTest extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
-
   @override
   State<StatefulWidget> createState() {
     WidgetsBinding.instance.addPostFrameCallback((_) => fetchPersonalityTest(questionNum));
@@ -21,33 +21,65 @@ class TakePersonalityTest extends StatefulWidget {
 }
 
 class PersonalityTestState extends State<TakePersonalityTest> {
-  
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
       onWillPop: () async => false,
-
       child: Scaffold(
-        body: new Container(
-          margin: const EdgeInsets.all(10.0),
-          child: new Column(
-            children: <Widget>[
-              new Padding(padding: EdgeInsets.all(20.0)),
-              new Text(question.question),
-              new Row(),
-              new RaisedButton(onPressed: () => updateQuestion(1), child: new Text("1")),
-              new RaisedButton(onPressed: () => updateQuestion(2), child: new Text("2")),
-              new RaisedButton(onPressed: () => updateQuestion(3), child: new Text("3")),
-              new RaisedButton(onPressed: () => updateQuestion(4), child: new Text("4")),
-              new RaisedButton(onPressed: () => updateQuestion(5), child: new Text("5")),
+        appBar: new AppBar(
+          backgroundColor: Color.fromRGBO(255, 255, 255, 0),
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
+        body: SafeArea(
+            child: Container(
+                  decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                      Color.fromRGBO(255, 255, 255, 1),
+                      Color.fromRGBO(81, 121, 112, 1)
+                  ])),
+          child: new Container(
 
-            ],
+            margin: const EdgeInsets.all(10.0),
+            child: new Column(
+              children: <Widget>[
+                Container(child: Image.asset('assets/images/MoodworksLogo.png')),
+                new Padding(padding: EdgeInsets.all(20.0)),
+                Text(
+                  question.question,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 30),
+                ),
+                Text("1 being strongly disagree and 5 being strongly agree"),
+                new Row(),
+                ButtonBar(
+                    alignment: MainAxisAlignment.center,
+                    //buttonMinWidth: 175.0,
+                    children: <Widget>[
+                      RaisedButton(onPressed: () => updateQuestion(1), child: new Text("1")),
+                      RaisedButton(onPressed: () => updateQuestion(2), child: new Text("2")),
+                      RaisedButton(onPressed: () => updateQuestion(3), child: new Text("3")),
+                      RaisedButton(onPressed: () => updateQuestion(4), child: new Text("4")),
+                      RaisedButton(onPressed: () => updateQuestion(5), child: new Text("5")),
+                    ]
+                ),
+              ],
+            ),
           ),
         ),
       ),
-    );
+    ));
   }
 
+  
+  
+  
   void updateQuestion(int num){
 
 
