@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodworksapp/Classes/PersonalityTest.dart';
+import 'package:moodworksapp/Classes/User.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:flutter/scheduler.dart';
 
-
+var user = new User();
 var questionNum = 0;
 var question;
 var c = 0, a = 0, e = 0, n = 0, o = 0;
@@ -91,6 +92,7 @@ class PersonalityTestState extends State<TakePersonalityTest> {
   }
   Future<bool> calculateType(int num){
     if(questionNum == 44){
+      InsertTest();
       Navigator.of(context).pushNamed('/personmenu');
     }
     else
@@ -164,5 +166,21 @@ Future<bool> fetchPersonalityTest(int num) async {
     questionNum++;
     return true;
   }
+}
+Future<bool> InsertTest() async {
+  var jsonMap;
+  var jsonData;
+  var date = new DateTime.now();
+  String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+  var res = await http.get("http://api.moodworx.co.za:2461/PT_Result?userID=" + user.userID.toString() + "&ResultDate=" + formattedDate + "&TotalN=" + n.toString() + "&TotalA=" + a.toString() + "&TotalE=" + e.toString() + "&TotalO=" + o.toString() + "&TotalC=" + c.toString() + "");
+  if (res.statusCode == 200) {
+    jsonMap = json.decode(res.body);
+  } else {}
+
+}
+
+void getUserID(User user1) {
+  user = user1;
+
 }
 

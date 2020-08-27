@@ -70,19 +70,20 @@ class AddNotes_screen extends StatelessWidget {
                         child: Text('Enter Notes'),
                         onPressed: () {
                           GetMoofInfo(id).then((value) {
-                            var mood = value;
+
                             if (actiontype == 1) {
                               EditMood(
                                   moodLogID,
                                   user.userID,
-                                  mood.moodInfoid,
-                                  mood.mood.toString(),
+                                  value.moodInfoid,
+                                  value.mood.toString(),
                                   notesController.text,
-                                  mood.moodDescription.toString());
+                                  value.moodDescription.toString());
                             } else {
+
                               newMood(
-                                  mood.mood.toString(),
-                                  mood.moodDescription.toString(),
+                                  value.mood.toString(),
+                                  value.moodDescription.toString(),
                                   notesController.text,
                                   user.userID,
                                   id);
@@ -100,7 +101,7 @@ class AddNotes_screen extends StatelessWidget {
     );
   }
 
-  void newMood(String mood, description, notes, int userid, moodinfoid) async {
+  void newMood(String moods, description, notes, int userid, moodinfoid) async {
     try {
       var jsonMap;
       var jsonData;
@@ -108,7 +109,7 @@ class AddNotes_screen extends StatelessWidget {
       String formattedDate = DateFormat('yyyy-MM-dd').format(date);
       var response = await http.get(
           'http://api.moodworx.co.za:2461/AddMood_Log?mood=' +
-              mood +
+              moods +
               '&date=' +
               formattedDate +
               '&description=' +
@@ -140,8 +141,9 @@ class AddNotes_screen extends StatelessWidget {
       }
 
       jsonData = jsonMap['recordset'];
-      if (jsonData.length == 1) {
+      if (jsonData.length >= 1) {
         var mood = MoodInfo.fromJson(jsonData[0]);
+        print(jsonData[0]);
         return mood;
       }
     } on Exception catch (_) {

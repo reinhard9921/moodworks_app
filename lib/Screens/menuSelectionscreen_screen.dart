@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart' as selectMood;
 import 'package:moodworksapp/Screens/editProfileScreen_screen.dart' as EditUser;
+import 'package:moodworksapp/Screens/personalityMenuScreen_screen.dart' as PersonalityMenu;
 
 var user = new User();
 
@@ -114,6 +115,7 @@ class MenuSelection_screen extends StatelessWidget {
                         child: Text('Personality Test'),
                         onPressed: () {
                           Navigator.of(context).pushNamed('/personmenu');
+                          PersonalityMenu.getUserID(user);
                         },
                       )),SizedBox(height: 20.0),
                   Container(height: 50,
