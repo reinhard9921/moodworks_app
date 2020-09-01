@@ -1,5 +1,13 @@
-
+import 'package:moodworksapp/Screens/overallStatsScreen_screen.dart' as year;
+import 'package:moodworksapp/Screens/differentStatsScreen_screen.dart' as week;
+import 'package:moodworksapp/Screens/predictionsScreen_screen.dart' as monthly;
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:moodworksapp/Classes/User.dart';
+import '../Classes/Statistics.dart';
+var stat = new Statistics();
+var user = new User();
 
 class AllStats_screen extends StatelessWidget {
   @override
@@ -50,9 +58,24 @@ class AllStats_screen extends StatelessWidget {
                       ),
                       textColor: Colors.white,
                       color: Colors.black,
-                      child: Text('Other Statistics'),
+                      child: Text('Week Statistics'),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/diffstats');
+                        getStatsWeek(user.userID).then((value) => week.getStatData(value)).then((value) => Navigator.of(context).pushNamed('/diffstats'));
+
+                        },
+                    )),
+                SizedBox(height: 20.0),
+                Container(height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.black,
+                      child: Text('Month Statistics'),
+                      onPressed: () {
+                        getStatsMonth(user.userID).then((value) => monthly.getStatData(value)).then((value) => Navigator.of(context).pushNamed('/predictions'));
                       },
                     )),
                 SizedBox(height: 20.0),
@@ -64,23 +87,10 @@ class AllStats_screen extends StatelessWidget {
                       ),
                       textColor: Colors.white,
                       color: Colors.black,
-                      child: Text('Other Statistics'),
+                      child: Text('Yearly Statistics'),
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/predictions');
-                      },
-                    )),
-                SizedBox(height: 20.0),
-                Container(height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      textColor: Colors.white,
-                      color: Colors.black,
-                      child: Text('Overall Statistics'),
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/overstats');
+                        getStatsYear(user.userID).then((value) => year.getStatData(value)).then((value) => Navigator.of(context).pushNamed('/overstats'));
+
                       },
                     )),
               ],
@@ -90,4 +100,78 @@ class AllStats_screen extends StatelessWidget {
       ),
     );
   }
+}
+void getUserData(User user1){
+  user = user1;
+}
+Future<Statistics> getStatsWeek(int userID) async {
+  var jsonMap;
+  var jsonData;
+  var Response = await http.get('http://api.moodworx.co.za:2461/Mood_Log_Stats_Week?userID=${userID}');
+
+
+  if (Response.statusCode == 200) {
+    jsonMap = json.decode(Response.body);
+  } else {
+    throw Exception;
+  }
+  jsonData = jsonMap['recordset'];
+  if (jsonData.length >= 1) {
+
+    stat = Statistics.fromJson(jsonData[0]);
+    return stat;
+  } else {
+    return null;
+  }
+
+}
+
+Future<Statistics> getStatsMonth(int userID) async {
+  var jsonMap;
+  var jsonData;
+  var Response = await http.get('http://api.moodworx.co.za:2461/Mood_Log_Stats_Month?userID=${userID}');
+
+
+  if (Response.statusCode == 200) {
+    jsonMap = json.decode(Response.body);
+  } else {
+    throw Exception;
+  }
+
+  jsonData = jsonMap['recordset'];
+  print(jsonData);
+  if (jsonData.length == 1) {
+    print(jsonData);
+
+    stat = Statistics.fromJson(jsonData[0]);
+
+    return stat;
+  } else {
+    return null;
+  }
+
+}
+
+Future<Statistics> getStatsYear(int userID) async {
+  var jsonMap;
+  var jsonData;
+  var Response = await http.get('http://api.moodworx.co.za:2461/Mood_Log_Stats_Year?userID=${userID}');
+
+
+  if (Response.statusCode == 200) {
+    jsonMap = json.decode(Response.body);
+  } else {
+    throw Exception;
+  }
+
+  jsonData = jsonMap['recordset'];
+  if (jsonData.length == 1) {
+
+    stat = Statistics.fromJson(jsonData[0]);
+
+    return stat;
+  } else {
+    return null;
+  }
+
 }

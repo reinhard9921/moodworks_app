@@ -6,7 +6,7 @@ import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart' as selectMood;
 import 'package:moodworksapp/Screens/editProfileScreen_screen.dart' as EditUser;
 import 'package:moodworksapp/Screens/personalityMenuScreen_screen.dart' as PersonalityMenu;
-import 'package:moodworksapp/Screens/overallStatsScreen_screen.dart' as overallstats;
+import 'package:moodworksapp/Screens/allStatsScreen_screen.dart' as overallstats;
 
 var user = new User();
 
