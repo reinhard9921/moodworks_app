@@ -10,6 +10,10 @@ class forgotPassword extends StatelessWidget {
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: true,
+        leading: IconButton(icon:Icon(Icons.arrow_back),
+          onPressed:() => Navigator.of(context).pushNamed('/login'),
+        ),
       ),
       body: SafeArea(
         child: Container(

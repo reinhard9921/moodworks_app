@@ -85,9 +85,9 @@ class MenuSelection_screen extends StatelessWidget {
                         ),
                         textColor: Colors.white,
                         color: Colors.black,
-                        child: Text('View History'),
+                        child: Text('Advice'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/history');
+                          Navigator.of(context).pushNamed('/advice');
                         },
                       )),
                   SizedBox(height: 20.0),

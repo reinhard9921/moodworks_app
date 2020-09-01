@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Screens/takePersonalityTestScreen_screen.dart' as test;
 import 'package:moodworksapp/Classes/User.dart';
-
 import 'package:moodworksapp/Screens/takePersonalityTestScreen_screen.dart' as PersonalityTest;
+import 'package:moodworksapp/Screens/previousResultsScreen_screen.dart' as PersonalityTest1;
 var user = new User();
 
 
 class PersonalityMenu_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) => PersonalityTest1.GetPreviousResult(user.userID));
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black),
+        automaticallyImplyLeading: true,
+        leading: IconButton(icon:Icon(Icons.arrow_back),
+          onPressed:() => Navigator.of(context).pushNamed('/menu'),
+        ),
       ),
       body: SafeArea(
         child: Container(
@@ -68,7 +73,9 @@ class PersonalityMenu_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('View Previous Test Results'),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/prevres');
+                          PersonalityTest1.getUserData(user);
+                          test.fetchPersonalityTest(test.questionNum).then((value) => Navigator.of(context).pushNamed('/prevres'));
+
                         },
                       )),
                   SizedBox(height: 20.0),

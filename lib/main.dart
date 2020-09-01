@@ -8,9 +8,6 @@ import 'Screens/menuSelectionscreen_screen.dart' as menu;
 import 'Screens/selectDailyMoodScreen_screen.dart' as selectmood;
 import 'Screens/addNotesScreen_screen.dart' as notes;
 import 'Screens/editMoodScreen_screen.dart' as editmood;
-import 'Screens/viewPrevScreen_screen.dart' as history;
-import 'Screens/statisticsScreen_screen.dart' as statistics;
-import 'Screens/pastEntriesScreen_screen.dart' as pastentries;
 import 'Screens/allStatsScreen_screen.dart' as allstats;
 import 'Screens/differentStatsScreen_screen.dart' as diffstats;
 import 'Screens/predictionsScreen_screen.dart' as predictions;
@@ -35,9 +32,6 @@ void main() {
       "/selectmood"  : (BuildContext context)=> new selectmood.SelectDailyMood_screen(),
       "/notes"  : (BuildContext context)=> new notes.AddNotes_screen(),
       "/editmood"  : (BuildContext context)=> new editmood.EditMood_screen(),
-      "/history"  : (BuildContext context)=> new history.ViewPrevious_screen(),
-      "/statistics"  : (BuildContext context)=> new statistics.Statistics_screen(),
-      "/pastentries"  : (BuildContext context)=> new pastentries.PastEntries_screen(),
       "/advice"  : (BuildContext context)=> new advice.Advice_screen(),
       "/allstats"  : (BuildContext context)=> new allstats.AllStats_screen(),
       "/diffstats"  : (BuildContext context)=> new diffstats.DifferentStats_Screen(),
