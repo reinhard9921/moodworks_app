@@ -72,14 +72,79 @@ class PreviousResults_screen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20.0),
-                  Container(
-                    child: FlatButton(
-                        color: Colors.blue,
+                  Container(height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                         textColor: Colors.white,
-                        padding: EdgeInsets.all(8.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () {}
-                        )
+                        color: Colors.black,
+                        child: Text('Agreeableness'),
+                        onPressed: () {
+
+                        },
+                      ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.black,
+                      child: Text('Extraversion'),
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.black,
+                      child: Text('Conscientiousness'),
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.black,
+                      child: Text('Openness'),
+                      onPressed: () {
+
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.black,
+                      child: Text('Neuroticism'),
+                      onPressed: () {
+
+                      },
+                    ),
                   ),
                 ],
               ),

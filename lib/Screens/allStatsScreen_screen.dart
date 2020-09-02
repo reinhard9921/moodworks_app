@@ -62,7 +62,7 @@ class AllStats_screen extends StatelessWidget {
                       ),
                       textColor: Colors.white,
                       color: Colors.black,
-                      child: Text('Week Statistics'),
+                      child: Text('Weekly Statistics'),
                       onPressed: () {
                         getStatsWeek(user.userID).then((value) => week.getStatData(value)).then((value) => Navigator.of(context).pushNamed('/diffstats'));
 
@@ -77,7 +77,7 @@ class AllStats_screen extends StatelessWidget {
                       ),
                       textColor: Colors.white,
                       color: Colors.black,
-                      child: Text('Month Statistics'),
+                      child: Text('Monthly Statistics'),
                       onPressed: () {
                         getStatsMonth(user.userID).then((value) => monthly.getStatData(value)).then((value) => Navigator.of(context).pushNamed('/predictions'));
                       },

@@ -11,7 +11,13 @@ class OverallStats_screen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
+        title: Text(
+          'Yearly Report',
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,
+              fontSize: 40),
+        ),
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black),
         automaticallyImplyLeading: true,
@@ -34,21 +40,13 @@ class OverallStats_screen extends StatelessWidget {
             child: Center(
               child: ListView(
                 children: <Widget>[
-                  Container(),
-                  SizedBox(height: 20.0),
+
+                  SizedBox(height: 50.0),
                   Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        'Yearly Statistics',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 30),
-                      )),
-                  SizedBox(height: 20.0),
-                  Container(
-                        child: PieChart(dataMap: DataMap()),
+                    child: PieChart(
+                      dataMap: DataMap(),
+                      legendPosition: LegendPosition.top,
+                    ),
                   ),
                 ],
               ),
