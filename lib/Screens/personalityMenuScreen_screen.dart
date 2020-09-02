@@ -9,7 +9,7 @@ var user = new User();
 class PersonalityMenu_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => PersonalityTest1.GetPreviousResult(user.userID));
+    WidgetsBinding.instance.addPostFrameCallback((_) => PersonalityTest1.GetPreviousResult(user.userID).then((value) => PersonalityTest.questionNum = 0));
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),

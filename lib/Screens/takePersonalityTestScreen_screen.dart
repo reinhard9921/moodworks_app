@@ -81,19 +81,20 @@ class PersonalityTestState extends State<TakePersonalityTest> {
     ));
   }
 
-  
-  
-  
+
+
+
   void updateQuestion(int num){
 
 
     setState(() {
 
       fetchPersonalityTest(questionNum).then((value) => calculateType(num));
-      
+
 
     });
   }
+  
   Future<bool> calculateType(int num){
     if(questionNum == 44){
       InsertTest();
