@@ -36,6 +36,7 @@ dev_dependencies:
     sdk: flutter
   mockito: ^4.1.1
   spider_chart: ^0.1.5
+  shared_preferences: ^0.5.10
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

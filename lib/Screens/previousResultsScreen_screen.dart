@@ -1,7 +1,7 @@
 import 'package:moodworksapp/Classes/PersonalityTestResult.dart';
 import 'package:spider_chart/spider_chart.dart';
 import 'package:flutter/material.dart';
-
+import 'package:moodworksapp/Screens/typeDescriptionScreen_screen.dart' as descrip;
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
@@ -82,7 +82,7 @@ class PreviousResults_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Agreeableness'),
                         onPressed: () {
-
+                        descrip.GetPreviousResult("a").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
                       ),
                   ),
@@ -97,7 +97,7 @@ class PreviousResults_screen extends StatelessWidget {
                       color: Colors.black,
                       child: Text('Extraversion'),
                       onPressed: () {
-
+                        descrip.GetPreviousResult("e").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                       },
                     ),
                   ),
@@ -112,7 +112,7 @@ class PreviousResults_screen extends StatelessWidget {
                       color: Colors.black,
                       child: Text('Conscientiousness'),
                       onPressed: () {
-
+                        descrip.GetPreviousResult("c").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                       },
                     ),
                   ),
@@ -127,7 +127,7 @@ class PreviousResults_screen extends StatelessWidget {
                       color: Colors.black,
                       child: Text('Openness'),
                       onPressed: () {
-
+                        descrip.GetPreviousResult("o").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                       },
                     ),
                   ),
@@ -142,7 +142,7 @@ class PreviousResults_screen extends StatelessWidget {
                       color: Colors.black,
                       child: Text('Neuroticism'),
                       onPressed: () {
-
+                        descrip.GetPreviousResult("n").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                       },
                     ),
                   ),

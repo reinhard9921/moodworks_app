@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import '';
+import 'package:shared_preferences/shared_preferences.dart' as Pref;
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Share/loading.dart';
 import 'dart:io';
@@ -89,10 +89,10 @@ class _State extends State<LoginPage> {
                           setState(() => loading = true);
                           SignIn(nameController.text, passwordController.text)
                               .then((value) {
-                            print(value);
                             if (value) {
                               setState(() => loading = false);
                               Navigator.of(context).pushNamed('/menu');
+
                             } else {
                               setState(() => loading = false);
                               //incorrect username and password
@@ -148,6 +148,9 @@ class _State extends State<LoginPage> {
       if (jsonData.length == 1) {
         var user = User.fromJson(jsonData[0]);
         if (email == user.email && password == user.password) {
+          Pref.SharedPreferences preferences = await Pref.SharedPreferences.getInstance();
+          preferences.setString("email", email);
+          preferences.setString("password", password);
           menu.getUserData(user);
           return true;
         } else {

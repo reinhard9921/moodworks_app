@@ -1,12 +1,25 @@
-
+import 'package:moodworksapp/Classes/PersonalityTestResult.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:moodworksapp/Classes/User.dart';
+import 'package:flutter/material.dart';
+import 'package:moodworksapp/Classes/PersonalityType.dart';
+
+var per = new PersonalityType();
 
 class TypeDescription_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
+        centerTitle: true,
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
+        title: Text(
+          per.heading,
+          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,
+              fontSize: 40),
+        ),
         elevation: 0.0,
         iconTheme: IconThemeData(color: Colors.black),
         automaticallyImplyLeading: true,
@@ -35,17 +48,13 @@ class TypeDescription_screen extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        'Personality Type Description',
+                        per.description,
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
-                            fontSize: 30),
+                            fontSize: 20),
                       )),
-                  SizedBox(height: 20.0),
-                  Container(
-                    height: 500,
-                    color: Colors.black12,
-                  ),
+
                 ],
               ),
             ),
@@ -53,5 +62,27 @@ class TypeDescription_screen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+
+Future<PersonalityType> GetPreviousResult(String car) async {
+  var jsonMap;
+  var jsonData;
+  print(car);
+  var Response = await http
+      .get('http://api.moodworx.co.za:2461/Personality_Type?PerKey=' + car);
+  if (Response.statusCode == 200) {
+    jsonMap = json.decode(Response.body);
+  } else {
+    throw Exception;
+  }
+
+  jsonData = jsonMap['recordset'];
+  if (jsonData.length == 1) {
+    per = PersonalityType.fromJson(jsonData[0]);
+    return per;
+  } else {
+    return null;
   }
 }
