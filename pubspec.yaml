@@ -25,6 +25,8 @@ dependencies:
   intl: 0.15.7
   flutter_spinkit: "^4.0.0"
   pie_chart: "^3.1.1"
+  table_calendar: ^2.2.3
+  github_calendar: ^0.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -36,7 +38,7 @@ dev_dependencies:
     sdk: flutter
   mockito: ^4.1.1
   spider_chart: ^0.1.5
-  shared_preferences: ^0.5.10
+  localstorage: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -1,14 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart' as Pref;
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Share/loading.dart';
 import 'dart:io';
+import 'package:localstorage/localstorage.dart';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:moodworksapp/Screens/registerscreen_screen.dart';
 import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart' as menu;
-
+import 'package:moodworksapp/globalvars.dart';
+var AutoLogin = false;
+final LocalStorage storage = new LocalStorage('login');
 class LoginPage extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
   @override
@@ -19,9 +21,32 @@ class _State extends State<LoginPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool loading = false;
-
   @override
+
+  void initState() {
+    super.initState();
+    storage.ready.then((_) => printStorage());
+  }
+
+  void printStorage() {
+    setState(() {
+
+    });
+  }
+
   Widget build(BuildContext context) {
+
+    if(Globalvars.Email_Address != null && Globalvars.Email_Address != "") {
+      Globalvars.userID = storage.getItem("userID").toString();
+      Globalvars.First_Name = storage.getItem("First_Name").toString();
+      Globalvars.Last_Name = storage.getItem("Last_Name").toString();
+      Globalvars.Email_Address = storage.getItem("Email_Address").toString();
+      Globalvars.Password = storage.getItem("Password").toString();
+      Globalvars.User_Age = storage.getItem("User_Age").toString();
+      Globalvars.rememberMe = storage.getItem("autologin").toString();
+    }
+
+    print(storage.getItem("email"));
     return loading ? Loading() : Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromRGBO(255, 255, 255, 0),
@@ -47,7 +72,7 @@ class _State extends State<LoginPage> {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        'Login',
+                        "Login",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
@@ -74,6 +99,17 @@ class _State extends State<LoginPage> {
                       ),
                     ),
                   ),
+                  CheckboxListTile(
+                    title: Text("Remeber Me"),
+                    value: AutoLogin,
+                    onChanged: (bool newValue) {
+                      setState(() {
+                        AutoLogin = newValue;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,
+                  ),
+
                   SizedBox(height: 20.0),
                   Container(
                       height: 50,
@@ -86,12 +122,13 @@ class _State extends State<LoginPage> {
                         color: Colors.black,
                         child: Text('Login'),
                         onPressed: () {
+
                           setState(() => loading = true);
                           SignIn(nameController.text, passwordController.text)
                               .then((value) {
                             if (value) {
                               setState(() => loading = false);
-                              Navigator.of(context).pushNamed('/menu');
+                              Navigator.of(context).pushNamed('/main');
 
                             } else {
                               setState(() => loading = false);
@@ -131,6 +168,7 @@ class _State extends State<LoginPage> {
 
   Future<bool> SignIn(String email, password) async {
     try {
+
       var jsonMap;
       var jsonData;
       var response = await http.get('http://api.moodworx.co.za:2461/login?email=' +
@@ -147,11 +185,21 @@ class _State extends State<LoginPage> {
       jsonData = jsonMap['recordset'];
       if (jsonData.length == 1) {
         var user = User.fromJson(jsonData[0]);
+
+
+
         if (email == user.email && password == user.password) {
-          Pref.SharedPreferences preferences = await Pref.SharedPreferences.getInstance();
-          preferences.setString("email", email);
-          preferences.setString("password", password);
+          if(AutoLogin ==  true){
+            storage.setItem("userID", user.userID);
+            storage.setItem("First_Name", user.firstname);
+            storage.setItem("Last_Name", user.lastname);
+            storage.setItem("Email_Address", user.email);
+            storage.setItem("Password", "");
+            storage.setItem("User_Age", user.age);
+            storage.setItem("autologin", "1");
+          }
           menu.getUserData(user);
+
           return true;
         } else {
           return false;
@@ -163,4 +211,6 @@ class _State extends State<LoginPage> {
       return false;
     }
   }
+
+
 }

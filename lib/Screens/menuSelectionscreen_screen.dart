@@ -1,4 +1,4 @@
-
+import 'package:localstorage/localstorage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +7,12 @@ import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart' as selec
 import 'package:moodworksapp/Screens/editProfileScreen_screen.dart' as EditUser;
 import 'package:moodworksapp/Screens/personalityMenuScreen_screen.dart' as PersonalityMenu;
 import 'package:moodworksapp/Screens/allStatsScreen_screen.dart' as overallstats;
+import 'package:moodworksapp/globalvars.dart';
 
 var user = new User();
 
 
+final LocalStorage storage = new LocalStorage('login');
 class MenuSelection_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,20 @@ class MenuSelection_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Logout'),
                         onPressed: () {
+                          storage.setItem("userID", "");
+                          storage.setItem("First_Name", "");
+                          storage.setItem("Last_Name", "");
+                          storage.setItem("Email_Address", "");
+                          storage.setItem("Password", "");
+                          storage.setItem("User_Age", "");
+                          storage.setItem("autologin", "");
+                          Globalvars.userID = storage.getItem("userID");
+                          Globalvars.First_Name = storage.getItem("First_Name");
+                          Globalvars.Last_Name = storage.getItem("Last_Name");
+                          Globalvars.Email_Address = storage.getItem("Email_Address");
+                          Globalvars.Password = storage.getItem("Password");
+                          Globalvars.User_Age = storage.getItem("User_Age");
+                          Globalvars.rememberMe = storage.getItem("autologin");
                           Navigator.of(context).pushNamed('/login');
                         },
                       )),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:moodworksapp/globalvars.dart';
 
 class forgotPassword extends StatelessWidget {
   @override
@@ -34,7 +35,7 @@ class forgotPassword extends StatelessWidget {
                       alignment: Alignment.topLeft,
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        'Forgot Password',
+                       'Forgot Password',
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,

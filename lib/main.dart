@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/_screen.dart';
 import 'Screens/login_screen.dart' as login;
+import 'Screens/mainHome_screen.dart' as mainScreen;
 import 'Screens/splashscreen_screen.dart' as splash;
 import 'Screens/registerscreen_screen.dart' as register;
 import 'Screens/menuSelectionscreen_screen.dart' as menu;
@@ -26,6 +27,7 @@ void main() {
     home: splash.SplashScreen_screen(),
     routes: <String, WidgetBuilder>{
       "/splash" : (BuildContext context)=> new splash.SplashScreen_screen(),
+      "/main" : (BuildContext context)=> new mainScreen.mainHome_screen(),
       "/login"  : (BuildContext context)=> new login.LoginPage(),
       "/register"  : (BuildContext context)=> new register.Register_screen(),
       "/menu"  : (BuildContext context)=> new menu.MenuSelection_screen(),
