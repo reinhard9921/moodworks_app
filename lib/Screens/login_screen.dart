@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flushbar/flushbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/User.dart';
@@ -114,29 +115,34 @@ class _State extends State<LoginPage> {
                   Container(
                       height: 50,
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        textColor: Colors.white,
-                        color: Colors.black,
-                        child: Text('Login'),
-                        onPressed: () {
-
-                          setState(() => loading = true);
-                          SignIn(nameController.text, passwordController.text)
-                              .then((value) {
-                            if (value) {
-                              setState(() => loading = false);
-                              Navigator.of(context).pushNamed('/main');
-
-                            } else {
-                              setState(() => loading = false);
-                              //incorrect username and password
-                            }
-                          });
-                        },
-                      )),
+                      child:
+                        RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                          ),
+                          textColor: Colors.white,
+                          color: Colors.black,
+                          child: Text('Login'),
+                          onPressed: () {
+                            setState(() => loading = true);
+                            SignIn(nameController.text,passwordController.text)
+                                .then((value) {
+                              if (value) {
+                                setState(() => loading = false);
+                                Navigator.of(context).pushNamed('/main');
+                              } else {
+                                setState(() {loading = false;
+                                Flushbar(
+                                  title:  "Error",
+                                  message:  "username or password is incorect",
+                                  duration:  Duration(seconds: 3),
+                                  backgroundColor: Colors.red,
+                                )..show(context);
+                                });
+                              }
+                            });
+                          },
+                        ),),
                   Container(
                       child: Column(
                     children: <Widget>[
@@ -157,7 +163,7 @@ class _State extends State<LoginPage> {
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   )),
-                ],
+                  ],
               ),
             ),
           ),
@@ -165,6 +171,8 @@ class _State extends State<LoginPage> {
       ),
     );
   }
+
+
 
   Future<bool> SignIn(String email, password) async {
     try {

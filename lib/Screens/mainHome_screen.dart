@@ -56,12 +56,23 @@ class _mainHome_screenState extends State<mainHome_screen> {
             child: Center(
               child: Column(
                 children: <Widget>[
-
-
-                    Align(
-
-                      alignment: Alignment.topRight,
-                      child: Padding(
+                  Align(
+                    alignment: Alignment.topLeft,
+                    heightFactor: 0,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: GestureDetector(
+                        onTap: ()=> Navigator.of(context).pushNamed('/editprofile'),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/MoodworksLogo.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    heightFactor: 5,
+                    child: Padding(
                         padding: EdgeInsets.only(left: 10.0),
                         child: GestureDetector(
                           onTap: () {Navigator.of(context).pushNamed('/menu');},
@@ -70,7 +81,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                         )
                     ),
-                    ),
+                  ),
 
                       Container(
                         child: Text(MonthOfYear, textAlign: TextAlign.center,style: TextStyle(fontSize: 50),),
