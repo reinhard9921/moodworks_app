@@ -4,6 +4,7 @@ import 'package:moodworksapp/Classes/MoodInfo.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:moodworksapp/globalvars.dart';
 import 'dart:convert';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:moodworksapp/Classes/CalendarClass.dart';
@@ -11,6 +12,7 @@ import 'package:moodworksapp/Classes/CalendarClass.dart';
 import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart';
 var list;
 var user = new User();
+
 var id = 0;
 var MonthOfYear;
 var _calendarController;
@@ -39,8 +41,10 @@ class _mainHome_screenState extends State<mainHome_screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    user = Globalvars.user1;
 
+    return WillPopScope(
+      child: Scaffold(
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -56,36 +60,45 @@ class _mainHome_screenState extends State<mainHome_screen> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    heightFactor: 0,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 10.0),
-                      child: GestureDetector(
-                        onTap: ()=> Navigator.of(context).pushNamed('/editprofile'),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/MoodworksLogo.png'),
+                  Row( children: <Widget>[
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        heightFactor: 1,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10.0),
+                          child: GestureDetector(
+                            onTap: () {Navigator.of(context).pushNamed('/editprofile');},
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundImage: AssetImage('assets/images/MoodworksLogo.png'),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    heightFactor: 5,
-                    child: Padding(
-                        padding: EdgeInsets.only(left: 10.0),
-                        child: GestureDetector(
-                          onTap: () {Navigator.of(context).pushNamed('/menu');},
-                          child: Icon(
-                              Icons.menu
-                          ),
-                        )
-                    ),
-                  ),
-
-                      Container(
-                        child: Text(MonthOfYear, textAlign: TextAlign.center,style: TextStyle(fontSize: 50),),
+                    Expanded(
+                      child:  Align(
+                        alignment: Alignment.topRight,
+                        heightFactor: 1,
+                        child: Padding(
+                            padding: EdgeInsets.only(left: 10.0),
+                            child: GestureDetector(
+                              onTap: () {Navigator.of(context).pushNamed('/menu');},
+                              child: Icon(
+                                Icons.menu,
+                                size: 40,
+                              ),
+                            )
+                        ),
                       ),
+                    )
+                  ],),
+                  SizedBox(height: 20.0,),
+
+                  Container(
+                    child: Text(MonthOfYear, textAlign: TextAlign.center,style: TextStyle(fontSize: 50),),
+                  ),
                   SizedBox(height: 20.0,),
 
                   Row(children: <Widget>[
@@ -123,7 +136,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                              color: Color(int.parse(arr1[0])),
+                            color: Color(int.parse(arr1[0])),
                           ),
                         ),
                       ),
@@ -195,7 +208,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[6])),
+                            color: Color(int.parse(arr1[6])),
                           ),
                         ),
                       ),
@@ -212,7 +225,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[7])),
+                            color: Color(int.parse(arr1[7])),
                           ),
                         ),
                       ),
@@ -224,7 +237,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[8])),
+                            color: Color(int.parse(arr1[8])),
                           ),
                         ),
                       ),
@@ -236,7 +249,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[9])),
+                            color: Color(int.parse(arr1[9])),
                           ),
                         ),
                       ),
@@ -248,7 +261,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[10])),
+                            color: Color(int.parse(arr1[10])),
                           ),
                         ),
                       ),
@@ -260,7 +273,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[11])),
+                            color: Color(int.parse(arr1[11])),
                           ),
                         ),
                       ),
@@ -272,7 +285,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[12])),
+                            color: Color(int.parse(arr1[12])),
                           ),
                         ),
                       ),
@@ -284,7 +297,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[13])),
+                            color: Color(int.parse(arr1[13])),
                           ),
                         ),
                       ),
@@ -301,7 +314,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[14])),
+                            color: Color(int.parse(arr1[14])),
                           ),
                         ),
                       ),
@@ -313,7 +326,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[15])),
+                            color: Color(int.parse(arr1[15])),
                           ),
                         ),
                       ),
@@ -325,7 +338,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[16])),
+                            color: Color(int.parse(arr1[16])),
                           ),
                         ),
                       ),
@@ -337,7 +350,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[17])),
+                            color: Color(int.parse(arr1[17])),
                           ),
                         ),
                       ),
@@ -349,7 +362,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[18])),
+                            color: Color(int.parse(arr1[18])),
                           ),
                         ),
                       ),
@@ -361,7 +374,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[19])),
+                            color: Color(int.parse(arr1[19])),
                           ),
                         ),
                       ),
@@ -373,7 +386,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[20])),
+                            color: Color(int.parse(arr1[20])),
                           ),
                         ),
                       ),
@@ -390,7 +403,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[21])),
+                            color: Color(int.parse(arr1[21])),
                           ),
                         ),
                       ),
@@ -402,7 +415,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[22])),
+                            color: Color(int.parse(arr1[22])),
                           ),
                         ),
                       ),
@@ -414,7 +427,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[23])),
+                            color: Color(int.parse(arr1[23])),
                           ),
                         ),
                       ),
@@ -426,7 +439,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[2])),
+                            color: Color(int.parse(arr1[2])),
                           ),
                         ),
                       ),
@@ -438,7 +451,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[2])),
+                            color: Color(int.parse(arr1[2])),
                           ),
                         ),
                       ),
@@ -450,7 +463,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[26])),
+                            color: Color(int.parse(arr1[26])),
                           ),
                         ),
                       ),
@@ -462,7 +475,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[27])),
+                            color: Color(int.parse(arr1[27])),
                           ),
                         ),
                       ),
@@ -479,7 +492,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[28])),
+                            color: Color(int.parse(arr1[28])),
                           ),
                         ),
                       ),
@@ -491,7 +504,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[29])),
+                            color: Color(int.parse(arr1[29])),
                           ),
                         ),
                       ),
@@ -503,7 +516,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[30])),
+                            color: Color(int.parse(arr1[30])),
                           ),
                         ),
                       ),
@@ -515,7 +528,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[31])),
+                            color: Color(int.parse(arr1[31])),
                           ),
                         ),
                       ),
@@ -527,7 +540,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[32])),
+                            color: Color(int.parse(arr1[32])),
                           ),
                         ),
                       ),
@@ -539,7 +552,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[33])),
+                            color: Color(int.parse(arr1[33])),
                           ),
                         ),
                       ),
@@ -551,7 +564,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[34])),
+                            color: Color(int.parse(arr1[34])),
                           ),
                         ),
                       ),
@@ -568,7 +581,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[35])),
+                            color: Color(int.parse(arr1[35])),
                           ),
                         ),
                       ),
@@ -580,7 +593,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[36])),
+                            color: Color(int.parse(arr1[36])),
                           ),
                         ),
                       ),
@@ -592,7 +605,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[37])),
+                            color: Color(int.parse(arr1[37])),
                           ),
                         ),
                       ),
@@ -604,7 +617,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[38])),
+                            color: Color(int.parse(arr1[38])),
                           ),
                         ),
                       ),
@@ -616,7 +629,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[39])),
+                            color: Color(int.parse(arr1[39])),
                           ),
                         ),
                       ),
@@ -628,7 +641,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[40])),
+                            color: Color(int.parse(arr1[40])),
                           ),
                         ),
                       ),
@@ -640,19 +653,38 @@ class _mainHome_screenState extends State<mainHome_screen> {
                           ),
                           height: 50,
                           decoration: BoxDecoration(
-                             color: Color(int.parse(arr1[41])),
+                            color: Color(int.parse(arr1[41])),
                           ),
                         ),
                       ),
                     ],
                   ),
+
+                  SizedBox(height: 50.0),
+                  Container(height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        textColor: Colors.white,
+                        color: Colors.black,
+                        child: Text('Enter Todays Mood'),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/selectmood');
+                        },
+                      )),
                 ],
               ),
             ),
           ),
         ),
       ),
-    );
+    ),
+      onWillPop: () async {
+        return false;
+      },
+  );
   }
 }
 
@@ -660,19 +692,14 @@ Future<bool> fetchData() async {
 //  setState(() {
 //    isLoading = true;
 //  });
-
-  final response = await http.get("http://api.moodworx.co.za:2461/Main_Screen?userid=1");
+  final response = await http.get("http://api.moodworx.co.za:2461/Main_Screen?userid=" + user.userID.toString());
   var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  if (response.statusCode == 200) {
-    print(json.decode(response.body).runtimeType); // _InternalLinkedHashMap<String, dynamic>
+  if (response.statusCode == 200) { // _InternalLinkedHashMap<String, dynamic>
 
     list = json.decode(response.body)
         .map((data) => CalandarClass.fromJson(data))
         .toList();
 
-//    setState(() {
-//      isLoading = false;
-//    });
     var date = new DateTime.now();
     MonthOfYear = month[date.month - 1];
     for (var i = 1; i <= 41; i++) {
@@ -681,11 +708,16 @@ Future<bool> fetchData() async {
         {
           arr1[i] = '0xFFE0F2F1';
         }
-      else{
+      else if(list[i].printd == null)
+      {
+        arr1[i] = '0xFFE0F2F1';
+      }
+      else {
         arr1[i] = list[i].printd;
       }
 
     }
+    return true;
   } else {
     throw Exception('Failed to load');
   }

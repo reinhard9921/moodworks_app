@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:flutter/scheduler.dart';
 
+import '../globalvars.dart';
+
 var user = new User();
 var questionNum = 0;
 var question;
@@ -23,8 +25,9 @@ class TakePersonalityTest extends StatefulWidget {
 class PersonalityTestState extends State<TakePersonalityTest> {
   @override
   Widget build(BuildContext context) {
+    user = Globalvars.user1;
     return new WillPopScope(
-      onWillPop: () async => false,
+
       child: Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
@@ -78,7 +81,12 @@ class PersonalityTestState extends State<TakePersonalityTest> {
           ),
         ),
       ),
-    ));
+    ),
+      onWillPop: () async {
+      Navigator.of(context).pushNamed('/personmenu');
+      return false;
+    },
+    );
   }
 
 
@@ -184,8 +192,4 @@ Future<bool> InsertTest() async {
 
 }
 
-void getUserID(User user1) {
-  user = user1;
-
-}
 

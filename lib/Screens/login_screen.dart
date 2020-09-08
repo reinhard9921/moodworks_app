@@ -4,13 +4,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:moodworksapp/Share/loading.dart';
-import 'dart:io';
 import 'package:localstorage/localstorage.dart';
-import 'package:moodworksapp/Classes/_screen.dart';
-import 'package:moodworksapp/Screens/registerscreen_screen.dart';
-import 'package:moodworksapp/Screens/menuSelectionscreen_screen.dart' as menu;
 import 'package:moodworksapp/globalvars.dart';
+import 'package:moodworksapp/Screens/mainHome_screen.dart';
 var AutoLogin = false;
+var user = new User();
 final LocalStorage storage = new LocalStorage('login');
 class LoginPage extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
@@ -48,74 +46,75 @@ class _State extends State<LoginPage> {
     }
 
     print(storage.getItem("email"));
-    return loading ? Loading() : Scaffold(
-      appBar: new AppBar(
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0),
-        elevation: 0.0,
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                Color.fromRGBO(255, 255, 255, 1),
-                Color.fromRGBO(81, 121, 112, 1)
-              ])),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: ListView(
-                children: <Widget>[
-                  Container(
-                      alignment: Alignment.topLeft,
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 30),
-                      )),
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
+    return WillPopScope(
+        child : loading ? Loading() : Scaffold(
+          appBar: new AppBar(
+            backgroundColor: Color.fromRGBO(255, 255, 255, 0),
+            elevation: 0.0,
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
+          body: SafeArea(
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Color.fromRGBO(255, 255, 255, 1),
+                        Color.fromRGBO(81, 121, 112, 1)
+                      ])),
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Center(
+                  child: ListView(
+                    children: <Widget>[
+                      Container(
+                          alignment: Alignment.topLeft,
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 30),
+                          )),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: TextField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Email',
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: TextField(
-                      obscureText: true,
-                      controller: passwordController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Password',
+                      Container(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: TextField(
+                          obscureText: true,
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Password',
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  CheckboxListTile(
-                    title: Text("Remeber Me"),
-                    value: AutoLogin,
-                    onChanged: (bool newValue) {
-                      setState(() {
-                        AutoLogin = newValue;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading,
-                  ),
+                      CheckboxListTile(
+                        title: Text("Remeber Me"),
+                        value: AutoLogin,
+                        onChanged: (bool newValue) {
+                          setState(() {
+                            AutoLogin = newValue;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity.leading,
+                      ),
 
-                  SizedBox(height: 20.0),
-                  Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                      child:
+                      SizedBox(height: 20.0),
+                      Container(
+                        height: 50,
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child:
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6.0),
@@ -128,7 +127,8 @@ class _State extends State<LoginPage> {
                             SignIn(nameController.text,passwordController.text)
                                 .then((value) {
                               if (value) {
-                                setState(() => loading = false);
+                                Globalvars.user1 = user;
+                                fetchData().then((value) => setState(() => loading = value));
                                 Navigator.of(context).pushNamed('/main');
                               } else {
                                 setState(() {loading = false;
@@ -143,32 +143,36 @@ class _State extends State<LoginPage> {
                             });
                           },
                         ),),
-                  Container(
-                      child: Column(
-                    children: <Widget>[
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/forgot');
-                        },
-                        textColor: Colors.blue,
-                        child: Text('Forgot Password'),
-                      ),
-                      FlatButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed('/register');
-                        },
-                        textColor: Colors.blue,
-                        child: Text('New to Moodworks?'),
-                      ),
+                      Container(
+                          child: Column(
+                            children: <Widget>[
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/forgot');
+                                },
+                                textColor: Colors.blue,
+                                child: Text('Forgot Password'),
+                              ),
+                              FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/register');
+                                },
+                                textColor: Colors.blue,
+                                child: Text('New to Moodworks?'),
+                              ),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          )),
                     ],
-                    mainAxisAlignment: MainAxisAlignment.center,
-                  )),
-                  ],
+                  ),
+                ),
               ),
             ),
           ),
         ),
-      ),
+      onWillPop: () async {
+        return false;
+      },
     );
   }
 
@@ -192,8 +196,9 @@ class _State extends State<LoginPage> {
 
       jsonData = jsonMap['recordset'];
       if (jsonData.length == 1) {
-        var user = User.fromJson(jsonData[0]);
+        user = User.fromJson(jsonData[0]);
 
+        Globalvars.user1 = user;
 
 
         if (email == user.email && password == user.password) {
@@ -206,7 +211,6 @@ class _State extends State<LoginPage> {
             storage.setItem("User_Age", user.age);
             storage.setItem("autologin", "1");
           }
-          menu.getUserData(user);
 
           return true;
         } else {

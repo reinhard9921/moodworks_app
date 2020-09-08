@@ -1,6 +1,9 @@
+import 'package:moodworksapp/Classes/User.dart';
+
 class Globalvars {
 
- static String userID;
+ static User user1;
+ static String userID = "";
  static String First_Name = "";
  static String Last_Name = "";
  static String Email_Address = "";
@@ -11,4 +14,7 @@ class Globalvars {
 
 
 
+
+
 }
+

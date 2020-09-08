@@ -24,7 +24,7 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
   void initState() {
     super.initState();
 
-    storage.ready.then((_) => fetchData()).then((value) => printStorage());
+    storage.ready.then((_) => fetchData()).then((value) => CheckAutoLogin());
   }
 
 
@@ -43,39 +43,12 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
                 Color.fromRGBO(255, 255, 255, 1),
                 Color.fromRGBO(81, 121, 112, 1)
               ])),
-          child: Column(
-            children: <Widget>[
-              Container(child: Image.asset('assets/images/MoodworksLogo.png')),
-              SizedBox(height: 570),
-              ButtonBar(
-                alignment: MainAxisAlignment.center,
-                buttonMinWidth: 175.0,
-                children: <Widget>[
-                  RaisedButton(
-                    color: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('/register');
-                    },
-                    child: Text('Register', style: TextStyle(fontSize: 20)),
-                  ),
-                  RaisedButton(
-                    color: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6.0),
-                    ),
-                    onPressed: () {
-
-                      Navigator.of(context).pushNamed('/login');
-
-                      },
-                    child: const Text('Log In', style: TextStyle(fontSize: 20)),
-                  ),
-                ],
-              ),
-            ],
+          child:  Align(
+            alignment: Alignment(0, -1),
+            child: Container(
+                height: 400,
+                width: 400,
+                child: Image.asset('assets/images/MoodworksLogo.png')),
           ),
         ),
       ),
@@ -83,6 +56,11 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
   }
 
   printStorage() {
+    Globalvars.user1 = new User(userID: storage.getItem("userID"), email: storage.getItem("Email_Address"), age: storage.getItem("User_Age"), firstname: storage.getItem("First_Name"), lastname: storage.getItem("Last_Name"), password: "");
+    print(Globalvars.user1);
+    print(Globalvars.user1.firstname);
+
+
     Globalvars.userID = storage.getItem("userID").toString();
     Globalvars.First_Name = storage.getItem("First_Name");
     Globalvars.Last_Name = storage.getItem("Last_Name");
@@ -93,15 +71,30 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
     Globalvars.rememberMe = storage.getItem("autologin");
 
     if(Globalvars.Email_Address != null && Globalvars.Email_Address != "" && Globalvars.rememberMe == "1") {
-      SignIn(Globalvars.userID).then((value) => autologin()).then((value) => menu.getUserData(user));
+      SignIn(Globalvars.userID).then((value) => autologin());
     }
   }
 
   void autologin() {
     //Do login
-      Navigator.of(context).pushNamed('/main');
+
 
   }
+
+
+  void CheckAutoLogin() {
+    //Do login
+    if(storage.getItem("autologin") == 1)
+    {
+      printStorage();
+    }
+    else
+      {
+        Navigator.of(context).pushNamed('/login');
+      }
+
+  }
+
 
   Future<bool> SignIn(id) async {
     try {

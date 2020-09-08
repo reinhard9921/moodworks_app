@@ -2,62 +2,67 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 import '../Classes/Statistics.dart';
 import '../Classes/User.dart';
+import '../globalvars.dart';
 var stat = new Statistics();
 var user = new User();
 
 class Predictions_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: new AppBar(
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(255, 255, 255, 0),
-        title: Text(
-          'Monthly Report',
-          style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,
-              fontSize: 40),
+    user = Globalvars.user1;
+    return WillPopScope(
+      child: Scaffold(
+        appBar: new AppBar(
+          centerTitle: true,
+          backgroundColor: Color.fromRGBO(255, 255, 255, 0),
+          title: Text(
+            'Monthly Report',
+            style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,
+                fontSize: 40),
+          ),
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: Colors.black),
+          automaticallyImplyLeading: true,
+          leading: IconButton(icon:Icon(Icons.arrow_back),
+            onPressed:() => Navigator.of(context).pushNamed('/allstats'),
+          ),
         ),
-        elevation: 0.0,
-        iconTheme: IconThemeData(color: Colors.black),
-        automaticallyImplyLeading: true,
-        leading: IconButton(icon:Icon(Icons.arrow_back),
-          onPressed:() => Navigator.of(context).pushNamed('/allstats'),
-        ),
-      ),
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color.fromRGBO(255, 255, 255, 1),
-                    Color.fromRGBO(81, 121, 112, 1)
-                  ])),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: ListView(
-                children: <Widget>[
+        body: SafeArea(
+          child: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color.fromRGBO(255, 255, 255, 1),
+                      Color.fromRGBO(81, 121, 112, 1)
+                    ])),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Center(
+                child: ListView(
+                  children: <Widget>[
 
-                  SizedBox(height: 50.0),
-                  Container(
-                    child: PieChart(
-                      dataMap: DataMap(),
-                      legendPosition: LegendPosition.top,
+                    SizedBox(height: 50.0),
+                    Container(
+                      child: PieChart(
+                        dataMap: DataMap(),
+                        legendPosition: LegendPosition.top,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
+      onWillPop: () async {
+        Navigator.of(context).pushNamed('/allstats');
+        return false;
+      },
     );
   }
-}
-void getUserData(User user1){
-  user = user1;
 }
 
 void getStatData(Statistics stat1){

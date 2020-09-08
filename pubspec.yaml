@@ -27,6 +27,7 @@ dependencies:
   pie_chart: "^3.1.1"
   table_calendar: ^2.2.3
   github_calendar: ^0.0.1
+  url_launcher: ^4.0.3
   flushbar: ^1.10.4
 
   # The following adds the Cupertino Icons font to your application.
