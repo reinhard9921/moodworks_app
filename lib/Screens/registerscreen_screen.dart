@@ -255,8 +255,7 @@ class _Register_screenState extends State<Register_screen> {
     );
   }
 
-  Future<bool> Register(
-      String email, password, firstname, lastname, int age) async {
+  Future<bool> Register(String email, password, firstname, lastname, int age) async {
     var response = await http.get(
         'http://api.moodworx.co.za:2461/AddUser?firstname=' +
             firstname +

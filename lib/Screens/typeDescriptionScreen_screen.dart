@@ -19,13 +19,13 @@ class TypeDescription_screen extends StatelessWidget {
           title: Text(
             per.heading,
             style: TextStyle(color: Colors.black,fontWeight: FontWeight.w500,
-                fontSize: 40),
+                fontSize: 35),
           ),
           elevation: 0.0,
           iconTheme: IconThemeData(color: Colors.black),
           automaticallyImplyLeading: true,
           leading: IconButton(icon:Icon(Icons.arrow_back),
-            onPressed:() => Navigator.of(context).pushNamed('/personmenu'),
+            onPressed:() => Navigator.of(context).pushNamed('/prevres'),
           ),
         ),
         body: SafeArea(
@@ -48,8 +48,7 @@ class TypeDescription_screen extends StatelessWidget {
                     Container(
                         alignment: Alignment.topLeft,
                         padding: EdgeInsets.all(10),
-                        child: Text(
-                          per.description,
+                        child: Text(per.description.replaceAll("\\n", "\n"),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
@@ -63,7 +62,7 @@ class TypeDescription_screen extends StatelessWidget {
           ),
         ),
       ),onWillPop: () async {
-      Navigator.of(context).pushNamed('/personmenu');
+      Navigator.of(context).pushNamed('/prevres');
       return false;
     },
     );

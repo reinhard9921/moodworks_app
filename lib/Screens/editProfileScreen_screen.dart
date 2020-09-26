@@ -5,10 +5,17 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:moodworksapp/globalvars.dart';
+import '../globalvars.dart';
 var user = User();
 bool _validate = false;
 bool Confirmed = false;
+TextEditingController nameController = TextEditingController();
+TextEditingController surnameController = TextEditingController();
+TextEditingController ageController = TextEditingController();
+TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
+
+
 class EditProfileScreen_screen extends StatefulWidget {
   //MyStatefulWidget({Key key}) : super(key: key);
 
@@ -21,13 +28,12 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
   @override
   Widget build(BuildContext context) {
 
-       TextEditingController nameController = TextEditingController();
-       TextEditingController surnameController = TextEditingController();
-       TextEditingController ageController = TextEditingController();
-       TextEditingController emailController = TextEditingController();
-       TextEditingController passwordController = TextEditingController();
-
-      user = Globalvars.user1;
+    user = Globalvars.user1;
+     nameController.text = user.firstname;
+     surnameController.text = user.lastname;
+     ageController.text = user.age.toString();
+     emailController.text = user.email;
+     passwordController.text = user.password;
     return WillPopScope(
       child: new Scaffold(
 
@@ -64,6 +70,10 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                                 fontWeight: FontWeight.w500,
                                 fontSize: 30),
                           )),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Text("Name"),
+                      ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: TextField(
@@ -74,6 +84,10 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                           ),
                         ),
                       ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: Text("Surname"),
+                  ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: TextField(
@@ -84,16 +98,24 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Text("Email"),
+                      ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: TextField(
-                          obscureText: true,
+                          obscureText: false,
                           controller: emailController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: user.email,
                           ),
                         ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Text("Password"),
                       ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -108,6 +130,10 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                         ),
                       ),
 
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Text("Age"),
+                      ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: TextField(
@@ -134,18 +160,14 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
                             child: Text('Save Changes'),
                             onPressed:() {
                               setState(() {
-                                nameController.text.isEmpty ? nameController.text = Globalvars.User_Age : _validate = false;
-                                surnameController.text.isEmpty ? surnameController.text = Globalvars.User_Age : _validate = false;
-                                emailController.text.isEmpty ? emailController.text = Globalvars.User_Age : _validate = false;
+                                nameController.text.isEmpty ? nameController.text = Globalvars.First_Name : _validate = false;
+                                surnameController.text.isEmpty ? surnameController.text = Globalvars.Last_Name : _validate = false;
+                                emailController.text.isEmpty ? emailController.text = Globalvars.Email_Address : _validate = false;
                                 ageController.text.isEmpty ? ageController.text = Globalvars.User_Age : _validate = false;
                                 passwordController.text.isEmpty ? _validate = true : _validate = false;
+
                               });
-                              CheckUser(int.parse(Globalvars.userID), passwordController.text);
-                              if(Confirmed)
-                                {
-                                  EditUserProfile(nameController.text , surnameController.text, emailController.text, passwordController.text, int.parse(ageController.text));
-                                  Navigator.of(context).pushNamed('/login');
-                                }
+                              CheckUser(user.userID, passwordController.text);
                             },
                           )),
 
@@ -159,12 +181,12 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
       },
     );
   }
-  Future<void> EditUserProfile(String Name, Surname, email, password, int age) async{
+  Future<void> EditUserProfile(String Name, Surname, email, password, age) async{
 
     var response = await http.get(
-        'http://api.moodworx.co.za:2461/EditUser? Name=' +
+        'http://api.moodworx.co.za:2461/EditUser?firstname=' +
             Name +
-            '&Surname=' +
+            '&lastname=' +
             Surname +
             '&email=' +
             email +
@@ -172,9 +194,11 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
             password +
             '&age=' +
             age.toString() +
-            '&id=0');
+            '&id=' +
+            user.userID.toString());
 
   }
+
   Future<void> CheckUser(int id, String password) async{
     var jsonMap;
     var jsonData;
@@ -188,22 +212,21 @@ class EditProfileScreen extends State<EditProfileScreen_screen> {
     } else {
       throw Exception;
     }
-
     jsonData = jsonMap['recordset'];
+    print(jsonData);
     if (jsonData.length == 1) {
       user = User.fromJson(jsonData[0]);
-
-
-
       if (password == user.password) {
-        Confirmed = true;
-        return true;
-      }
-      else
-        {
+        user.firstname = nameController.text;
+        user.lastname =  surnameController.text;
+        user.email = emailController.text;
+        user.age = int.parse(ageController.text);
+        Globalvars.user1 = user;
+        EditUserProfile(nameController.text , surnameController.text, emailController.text, passwordController.text, ageController.text);
+        Navigator.of(context).pushNamed('/main');
 
-        }
-}
+      }
+    }
 
   }
 

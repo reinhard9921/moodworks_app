@@ -4,20 +4,18 @@ import 'package:moodworksapp/Classes/PersonalityTest.dart';
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
-import 'package:flutter/scheduler.dart';
-
 import '../globalvars.dart';
 
 var user = new User();
-var questionNum = 0;
+var questionNum = 1;
 var question;
 var c = 0, a = 0, e = 0, n = 0, o = 0;
+var jsonData;
 
 class TakePersonalityTest extends StatefulWidget {
   //LoginPage({Key key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => fetchPersonalityTest(questionNum));
     return new PersonalityTestState();
 }
 }
@@ -54,7 +52,14 @@ class PersonalityTestState extends State<TakePersonalityTest> {
             child: new Column(
               children: <Widget>[
                 Container(child: Image.asset('assets/images/MoodworksLogo.png')),
-                new Padding(padding: EdgeInsets.all(20.0)),
+                new Padding(padding: EdgeInsets.all(10.0)),
+                Text(question.questionNum.toString() + "/44",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20),
+                ),
+                new Padding(padding: EdgeInsets.all(10.0)),
                 Text(
                   question.question,
                   textAlign: TextAlign.center,
@@ -84,6 +89,7 @@ class PersonalityTestState extends State<TakePersonalityTest> {
     ),
       onWillPop: () async {
       Navigator.of(context).pushNamed('/personmenu');
+      c = 0; a = 0; e = 0; n = 0; o = 0;
       return false;
     },
     );
@@ -94,22 +100,25 @@ class PersonalityTestState extends State<TakePersonalityTest> {
 
   void updateQuestion(int num){
 
-
     setState(() {
 
-      fetchPersonalityTest(questionNum).then((value) => calculateType(num));
-
+      nextQuestion().then((value) => calculateType(num));
 
     });
   }
   
   Future<bool> calculateType(int num){
-    if(questionNum == 44){
+    questionNum++;
+
+    if(questionNum > 44){
       InsertTest();
       Navigator.of(context).pushNamed('/personmenu');
+      c = 0; a = 0; e = 0; n = 0; o = 0;
+
     }
     else
     {
+
       if(question.letter.toString() == 'C'){
         c += reverse(num);
       }
@@ -141,8 +150,7 @@ class PersonalityTestState extends State<TakePersonalityTest> {
         o += num;
       }
 
-      print("C = " + c.toString() + ", A = " + a.toString() + ", E = " + e.toString() + ", N = " + n.toString() + ", O = " + o.toString());
-      print("First " + questionNum.toString());
+
     }
   }
   int reverse(int number){
@@ -164,31 +172,49 @@ class PersonalityTestState extends State<TakePersonalityTest> {
 
   }
 }
+Future<bool> nextQuestion() async {
 
-Future<bool> fetchPersonalityTest(int num) async {
-  print("Second " + questionNum.toString());
+    if(question.questionNum > 43){
+      InsertTest();
+
+    }
+    else
+      {
+        question = PersonalityTest.fromJson(jsonData[questionNum]);
+        if(question.questionNum == 1){
+
+          question = PersonalityTest.fromJson(jsonData[1]);
+        }
+        return true;
+      }
+}
+
+Future<bool> fetchPersonalityTest() async {
   var jsonMap;
-  var jsonData;
   var res = await http.get("http://api.moodworx.co.za:2461/Personality_Test");
   if (res.statusCode == 200) {
     jsonMap = json.decode(res.body);
-  } else {}
+  }
   jsonData = jsonMap['recordset'];
   if (jsonData.length >= 1) {
-    question = PersonalityTest.fromJson(jsonData[num]);
-    questionNum++;
+
+    question = PersonalityTest.fromJson(jsonData[0]);
+
     return true;
   }
+
 }
-Future<bool> InsertTest() async {
-  var jsonMap;
-  var jsonData;
+
+void InsertTest() async {
+  var InsertJson;
   var date = new DateTime.now();
   String formattedDate = DateFormat('yyyy-MM-dd').format(date);
-  var res = await http.get("http://api.moodworx.co.za:2461/PT_Result?userID=" + user.userID.toString() + "&ResultDate=" + formattedDate + "&TotalN=" + n.toString() + "&TotalA=" + a.toString() + "&TotalE=" + e.toString() + "&TotalO=" + o.toString() + "&TotalC=" + c.toString() + "");
+   var res = await http.get("http://api.moodworx.co.za:2461/PT_Result?userID=" + user.userID.toString() + "&ResultDate=" + formattedDate + "&TotalN=" + n.toString() + "&TotalA=" + a.toString() + "&TotalE=" + e.toString() + "&TotalO=" + o.toString() + "&TotalC=" + c.toString() + "");
   if (res.statusCode == 200) {
-    jsonMap = json.decode(res.body);
-  } else {}
+
+  }
+
+  c = 0; a = 0; e = 0; n = 0; o = 0;
 
 }
 

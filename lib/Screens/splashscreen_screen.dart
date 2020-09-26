@@ -56,36 +56,30 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
   }
 
   printStorage() {
-    Globalvars.user1 = new User(userID: storage.getItem("userID"), email: storage.getItem("Email_Address"), age: storage.getItem("User_Age"), firstname: storage.getItem("First_Name"), lastname: storage.getItem("Last_Name"), password: "");
-    print(Globalvars.user1);
-    print(Globalvars.user1.firstname);
 
-
-    Globalvars.userID = storage.getItem("userID").toString();
-    Globalvars.First_Name = storage.getItem("First_Name");
-    Globalvars.Last_Name = storage.getItem("Last_Name");
-    Globalvars.Email_Address = storage.getItem("Email_Address");
-    Globalvars.Password = storage.getItem("Password");
-    Globalvars.User_Age = storage.getItem("User_Age").toString();
     print(storage.getItem("autologin"));
-    Globalvars.rememberMe = storage.getItem("autologin");
+    Globalvars.user1 = new User(userID: storage.getItem("userID"), email: storage.getItem("Email_Address"), age: storage.getItem("User_Age"), firstname: storage.getItem("First_Name"), lastname: storage.getItem("Last_Name"), password: "");
+    print(Globalvars.user1.email);
 
-    if(Globalvars.Email_Address != null && Globalvars.Email_Address != "" && Globalvars.rememberMe == "1") {
-      SignIn(Globalvars.userID).then((value) => autologin());
+
+    if(Globalvars.user1.email != null && Globalvars.user1.email != "") {
+      SignIn(Globalvars.user1.userID).then((value) => autologin());
     }
   }
 
   void autologin() {
     //Do login
 
+    Navigator.of(context).pushNamed('/main');
 
   }
 
 
   void CheckAutoLogin() {
-    //Do login
-    if(storage.getItem("autologin") == 1)
+
+    if(storage.getItem("autologin") == "1")
     {
+
       printStorage();
     }
     else
@@ -101,7 +95,7 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
 
       var jsonMap;
       var jsonData;
-      var response = await http.get('http://api.moodworx.co.za:2461/Select_User?userID=' + id );
+      var response = await http.get('http://api.moodworx.co.za:2461/Select_User?userID=' + id.toString() );
 
       if (response.statusCode == 200) {
         jsonMap = json.decode(response.body);

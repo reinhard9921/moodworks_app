@@ -11,7 +11,7 @@ var user = new User();
 class PersonalityMenu_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => PersonalityTest1.GetPreviousResult(user.userID).then((value) => PersonalityTest.questionNum = 0));
+    WidgetsBinding.instance.addPostFrameCallback((_) => PersonalityTest.questionNum = 0);
     user = Globalvars.user1;
     return WillPopScope(
       child: Scaffold(
@@ -62,7 +62,7 @@ class PersonalityMenu_screen extends StatelessWidget {
                           color: Colors.black,
                           child: Text('Take Personality Test'),
                           onPressed: () {
-                            test.fetchPersonalityTest(test.questionNum).then((value) => Navigator.of(context).pushNamed('/test'));
+                            test.fetchPersonalityTest().then((value) => Navigator.of(context).pushNamed('/test'));
                           },
                         )),
                     SizedBox(height: 20.0),
@@ -76,7 +76,8 @@ class PersonalityMenu_screen extends StatelessWidget {
                           color: Colors.black,
                           child: Text('View Previous Test Results'),
                           onPressed: () {
-                            test.fetchPersonalityTest(test.questionNum).then((value) => Navigator.of(context).pushNamed('/prevres'));
+
+                            PersonalityTest1.GetPreviousResult(user.userID).then((value) => Navigator.of(context).pushNamed('/prevres'));
 
                           },
                         )),
@@ -102,6 +103,7 @@ class PersonalityMenu_screen extends StatelessWidget {
         ),
       ),
       onWillPop: () async {
+        PersonalityTest.fetchPersonalityTest();
         Navigator.of(context).pushNamed('/menu');
         return false;
       },

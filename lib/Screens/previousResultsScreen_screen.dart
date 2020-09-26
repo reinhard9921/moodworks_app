@@ -3,7 +3,7 @@ import 'package:spider_chart/spider_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Screens/typeDescriptionScreen_screen.dart' as descrip;
 import 'dart:convert';
-
+import 'package:moodworksapp/Share/loading.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodworksapp/Classes/User.dart';
 
@@ -16,8 +16,11 @@ class PreviousResults_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     user = Globalvars.user1;
+    bool loading = true;
+
+    GetPreviousResult(user.userID).then((value) => {loading = false});
     return WillPopScope(
-      child: Scaffold(
+      child : loading ? Loading() : Scaffold(
         appBar: new AppBar(
           backgroundColor: Color.fromRGBO(255, 255, 255, 0),
           elevation: 0.0,
@@ -72,7 +75,7 @@ class PreviousResults_screen extends StatelessWidget {
                           Colors.yellow,
                           Colors.indigo,
                         ],
-                        labels: ["Agreeableness","Extraversion","Conscientiousness","Openness","Neuroticism"],
+                        labels: ["Agreeableness","Extroversion","Conscientiousness","Openness","Neuroticism"],
                       ),
                     ),
                     SizedBox(height: 20.0),
@@ -99,7 +102,7 @@ class PreviousResults_screen extends StatelessWidget {
                         ),
                         textColor: Colors.white,
                         color: Colors.black,
-                        child: Text('Extraversion'),
+                        child: Text('Extroversion'),
                         onPressed: () {
                           descrip.GetPreviousResult("e").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
@@ -165,7 +168,6 @@ class PreviousResults_screen extends StatelessWidget {
   }
 }
 
-
 Future<PersonalityTestResult> GetPreviousResult(int userID) async {
   var jsonMap;
   var jsonData;
@@ -179,7 +181,7 @@ Future<PersonalityTestResult> GetPreviousResult(int userID) async {
   }
 
   jsonData = jsonMap['recordset'];
-  if (jsonData.length == 1) {
+  if (jsonData[0] != null) {
     ptr = PersonalityTestResult.fromJson(jsonData[0]);
     a = (ptr.a / 40) * 100;
     e = (ptr.e / 45) * 100;
