@@ -57,11 +57,7 @@ class _SplashScreen_screenState extends State<SplashScreen_screen> {
 
   printStorage() {
 
-    print(storage.getItem("autologin"));
     Globalvars.user1 = new User(userID: storage.getItem("userID"), email: storage.getItem("Email_Address"), age: storage.getItem("User_Age"), firstname: storage.getItem("First_Name"), lastname: storage.getItem("Last_Name"), password: "");
-    print(Globalvars.user1.email);
-
-
     if(Globalvars.user1.email != null && Globalvars.user1.email != "") {
       SignIn(Globalvars.user1.userID).then((value) => autologin());
     }

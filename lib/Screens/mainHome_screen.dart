@@ -692,6 +692,7 @@ Future<bool> fetchData() async {
 //  setState(() {
 //    isLoading = true;
 //  });
+print(user.userID.toString());
   final response = await http.get("http://api.moodworx.co.za:2461/Main_Screen?userid=" + user.userID.toString());
   var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   if (response.statusCode == 200) { // _InternalLinkedHashMap<String, dynamic>

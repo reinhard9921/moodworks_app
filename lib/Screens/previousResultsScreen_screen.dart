@@ -11,14 +11,14 @@ import '../globalvars.dart';
 
 var ptr = new PersonalityTestResult();
 var user = new User();
+bool loading = true;
 var a = 0.0, n = 0.0, c = 0.0, e = 0.0, o = 0.0;
 class PreviousResults_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     user = Globalvars.user1;
-    bool loading = true;
 
-    GetPreviousResult(user.userID).then((value) => {loading = false});
+    GetPreviousResult(user.userID);
     return WillPopScope(
       child : loading ? Loading() : Scaffold(
         appBar: new AppBar(
@@ -188,7 +188,9 @@ Future<PersonalityTestResult> GetPreviousResult(int userID) async {
     c = (ptr.c / 45) * 100;
     o = (ptr.o / 40) * 100;
     n = (ptr.n / 50) * 100;
+    loading = false;
     return ptr;
+
   } else {
     return null;
   }
