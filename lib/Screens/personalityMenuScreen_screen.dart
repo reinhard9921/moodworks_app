@@ -90,9 +90,9 @@ class PersonalityMenu_screen extends StatelessWidget {
                           ),
                           textColor: Colors.white,
                           color: Colors.black,
-                          child: Text('Personality Type Description'),
+                          child: Text('Personality Type With Description'),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/typedesc');
+                            Navigator.of(context).pushNamed('/advice');
                           },
                         )),
                   ],

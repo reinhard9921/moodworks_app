@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:moodworksapp/Classes/User.dart';
 import 'package:flutter/material.dart';
 import 'package:moodworksapp/Classes/PersonalityType.dart';
-
+var back = 1;
 var per = new PersonalityType();
 
 class TypeDescription_screen extends StatelessWidget {
@@ -25,7 +25,7 @@ class TypeDescription_screen extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
           automaticallyImplyLeading: true,
           leading: IconButton(icon:Icon(Icons.arrow_back),
-            onPressed:() => Navigator.of(context).pushNamed('/prevres'),
+            onPressed:() => { if(back == 1){Navigator.of(context).pushNamed('/prevres')}else{Navigator.of(context).pushNamed('/advice')}},
           ),
         ),
         body: SafeArea(

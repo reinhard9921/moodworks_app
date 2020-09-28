@@ -6,15 +6,16 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:moodworksapp/globalvars.dart';
 import 'dart:convert';
+import 'package:moodworksapp/Share/loading.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:moodworksapp/Classes/CalendarClass.dart';
 
 import 'package:moodworksapp/Screens/selectDailyMoodScreen_screen.dart';
 var list;
 var user = new User();
-
+bool isLoading = true;
 var id = 0;
-var MonthOfYear;
+var _value = 1;
 var _calendarController;
 var arr = ['','','','','','','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','','','','','','','','','','','','','','','',''];
 var arr1 = ['0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1', '0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1','0xFFE0F2F1'];
@@ -31,6 +32,8 @@ class _mainHome_screenState extends State<mainHome_screen> {
   void initState() {
     super.initState();
     _calendarController = CalendarController();
+    isLoading = true;
+
   }
 
   @override
@@ -42,9 +45,11 @@ class _mainHome_screenState extends State<mainHome_screen> {
   @override
   Widget build(BuildContext context) {
     user = Globalvars.user1;
-
+    fetchData().then((value) => {setState(() {
+    isLoading = false;
+    })});
     return WillPopScope(
-      child: Scaffold(
+      child: isLoading ? Loading() : Scaffold(
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -97,7 +102,116 @@ class _mainHome_screenState extends State<mainHome_screen> {
                   SizedBox(height: 20.0,),
 
                   Container(
-                    child: Text(MonthOfYear, textAlign: TextAlign.center,style: TextStyle(fontSize: 50),),
+                    padding: EdgeInsets.all(20.0),
+                    child: DropdownButton(
+                        itemHeight: 100,
+                        value: _value,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text("January",
+                            style: TextStyle(
+                              fontSize: 50
+                            ),
+                            ),
+                            value: 1,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("February",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 2,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("March",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 3,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("April",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 4,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("May",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 5,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("June",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 6,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("July",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 7,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("August",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 8,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("September",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 9,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("October",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 10,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("November",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 11,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("December",
+                              style: TextStyle(
+                                  fontSize: 50
+                              ),
+                            ),
+                            value: 12,
+                          ),
+
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _value = value;
+                            print(_value);
+                          });
+                        }),
+
                   ),
                   SizedBox(height: 20.0,),
 
@@ -689,10 +803,7 @@ class _mainHome_screenState extends State<mainHome_screen> {
 }
 
 Future<bool> fetchData() async {
-//  setState(() {
-//    isLoading = true;
-//  });
-print(user.userID.toString());
+
   final response = await http.get("http://api.moodworx.co.za:2461/Main_Screen?userid=" + user.userID.toString());
   var month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   if (response.statusCode == 200) { // _InternalLinkedHashMap<String, dynamic>
@@ -702,7 +813,7 @@ print(user.userID.toString());
         .toList();
 
     var date = new DateTime.now();
-    MonthOfYear = month[date.month - 1];
+    _value = date.month;
     for (var i = 1; i <= 41; i++) {
       arr[i] = list[i].id;
       if(list[i].printd == "")
@@ -718,6 +829,7 @@ print(user.userID.toString());
       }
 
     }
+    
     return true;
   } else {
     throw Exception('Failed to load');

@@ -128,7 +128,6 @@ class _State extends State<LoginPage> {
                                 .then((value) {
                               if (value) {
                                 Globalvars.user1 = user;
-                                fetchData().then((value) => setState(() => loading = value));
                                 Navigator.of(context).pushNamed('/main');
                               } else {
                                 setState(() {loading = false;

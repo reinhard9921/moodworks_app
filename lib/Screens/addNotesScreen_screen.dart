@@ -90,7 +90,7 @@ class AddNotes_screen extends StatelessWidget {
                                     id);
                               }
                             });
-                            Navigator.of(context).pushNamed('/menu');
+                            Navigator.of(context).pushNamed('/main');
                           },
                         )),
                   ],
@@ -149,7 +149,6 @@ class AddNotes_screen extends StatelessWidget {
       jsonData = jsonMap['recordset'];
       if (jsonData.length >= 1) {
         var mood = MoodInfo.fromJson(jsonData[0]);
-        print(jsonData[0]);
         return mood;
       }
     } on Exception catch (_) {

@@ -89,6 +89,7 @@ class PreviousResults_screen extends StatelessWidget {
                           color: Colors.black,
                           child: Text('Agreeableness'),
                           onPressed: () {
+                            descrip.back = 1;
                           descrip.GetPreviousResult("a").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                           },
                         ),
@@ -104,6 +105,7 @@ class PreviousResults_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Extroversion'),
                         onPressed: () {
+                          descrip.back = 1;
                           descrip.GetPreviousResult("e").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
                       ),
@@ -119,6 +121,7 @@ class PreviousResults_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Conscientiousness'),
                         onPressed: () {
+                          descrip.back = 1;
                           descrip.GetPreviousResult("c").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
                       ),
@@ -134,6 +137,7 @@ class PreviousResults_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Openness'),
                         onPressed: () {
+                          descrip.back = 1;
                           descrip.GetPreviousResult("o").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
                       ),
@@ -149,6 +153,7 @@ class PreviousResults_screen extends StatelessWidget {
                         color: Colors.black,
                         child: Text('Neuroticism'),
                         onPressed: () {
+                          descrip.back = 1;
                           descrip.GetPreviousResult("n").then((value) => Navigator.of(context).pushNamed('/typedesc'));
                         },
                       ),
