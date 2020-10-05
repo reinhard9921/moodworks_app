@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 bool Agree = false;
+bool cmail = false;
 bool _validate = false;
 bool _validate1 = false;
 bool _validate2 = false;
@@ -106,6 +107,7 @@ class _Register_screenState extends State<Register_screen> {
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                         child: TextField(
                           controller: emailController,
+
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Email',
@@ -178,6 +180,8 @@ class _Register_screenState extends State<Register_screen> {
                             color: Colors.black,
                             child: Text('Register'),
                             onPressed: () {
+
+
                               setState(() {
                                 nameController.text.isEmpty
                                     ? _validate = true
@@ -198,33 +202,41 @@ class _Register_screenState extends State<Register_screen> {
                                     ? _validate5 = true
                                     : _validate5 = false;
                               });
-
-                              if(nameController.text.isNotEmpty && surnameController.text.isNotEmpty && emailController.text.isNotEmpty && ageController.text.isNotEmpty && password1Controller.text.isNotEmpty && password2Controller.text.isNotEmpty){
-                                print(Agree);
-                                if(Agree){
-                                  if (password1Controller.text ==
-                                      password2Controller.text) {
-                                    Register(
-                                        emailController.text,
-                                        password1Controller.text,
-                                        nameController.text,
-                                        surnameController.text,
-                                        int.parse(ageController.text));
-                                    Navigator.of(context).pushNamed('/login');
-                                  }
-                                  else
-                                    {
-                                      setState(() {
-                                      Flushbar(
-                                        title:  "Warning",
-                                        message:  "Please Agree to Our Terms And Conditions",
-                                        duration:  Duration(seconds: 3),
-                                        backgroundColor: Colors.orange,
-                                      )..show(context);
-                                      });
-                                    }
+                              EmailCheck(emailController.text);
+                              if(cmail)
+                                {
+                                  EmailCheck(emailController.text);
                                 }
-                              }
+                              else
+                                {
+                                  if(nameController.text.isNotEmpty && surnameController.text.isNotEmpty && emailController.text.isNotEmpty && ageController.text.isNotEmpty && password1Controller.text.isNotEmpty && password2Controller.text.isNotEmpty){
+                                    print(Agree);
+                                    if(Agree){
+                                      if (password1Controller.text ==
+                                          password2Controller.text) {
+                                        Register(
+                                            emailController.text,
+                                            password1Controller.text,
+                                            nameController.text,
+                                            surnameController.text,
+                                            int.parse(ageController.text));
+                                        Navigator.of(context).pushNamed('/login');
+                                      }
+                                      else
+                                      {
+                                        setState(() {
+                                          Flushbar(
+                                            title:  "Warning",
+                                            message:  "Please Agree to Our Terms And Conditions",
+                                            duration:  Duration(seconds: 3),
+                                            backgroundColor: Colors.orange,
+                                          )..show(context);
+                                        });
+                                      }
+                                    }
+                                  }
+                                }
+
 
                             },
                           )),
@@ -268,5 +280,32 @@ class _Register_screenState extends State<Register_screen> {
             '&age=' +
             age.toString() +
             '&id=0');
+  }
+
+  Future<bool> EmailCheck(String email) async {
+    var jsonMap;
+    var jsonData;
+    var response = await http.get("http://api.moodworx.co.za:2461/checkMail?email=" + email);
+    if (response.statusCode == 200) {
+      jsonMap = json.decode(response.body);
+    } else {
+      throw Exception;
+    }
+
+    jsonData = jsonMap['recordset'];
+    if (jsonData.length >= 1) {
+      setState(() {
+        Flushbar(
+          title:  "Warning",
+          message:  "Email Already Exists",
+          duration:  Duration(seconds: 3),
+          backgroundColor: Colors.orange,
+        )..show(context);
+      });
+    }
+    else
+      {
+        cmail = false;
+      }
   }
 }
